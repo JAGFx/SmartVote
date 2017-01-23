@@ -1,46 +1,38 @@
-var express      = require( 'express' );
-var path         = require( 'path' );
-var favicon      = require( 'serve-favicon' );
-var logger       = require( 'morgan' );
-var cookieParser = require( 'cookie-parser' );
-var bodyParser   = require( 'body-parser' );
+/**
+ * Created by SMITHE on 23-Jan-17.
+ */
+var express = require( 'express' );
+var server  = express();
+// Page d'accueil
+server.get( '/', function ( req, res ) {
+	res.setHeader( 'Content-Type', "text/html; charset=utf-8" );
+	res.end( '<html>' +
+		 '<head>' +
+		 '<style>' +
+		 'p {color : blue;}' +
+		 '</style>' +
+		 '</head>' +
+		 '<body>' +
+		 '<p>Vous êtes sur la page d\'accueil</p>' +
+		 '</body>' +
+		 '</html>' );
+} )
 
-var index = require( './routes/index' );
-var users = require( './routes/users' );
-
-var app = express();
-
-// view engine setup
-app.set( 'views', path.join( __dirname, 'views' ) );
-app.set( 'view engine', 'ejs' );
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use( logger( 'dev' ) );
-app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded( { extended: false } ) );
-app.use( cookieParser() );
-app.use( express.static( path.join( __dirname, 'public' ) ) );
-
-app.use( '/', index );
-app.use( '/users', users );
-
-// catch 404 and forward to error handler
-app.use( function ( req, res, next ) {
-	var err    = new Error( 'Not Found' );
-	err.status = 404;
-	next( err );
-} );
-
-// error handler
-app.use( function ( err, req, res, next ) {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error   = req.app.get( 'env' ) === 'development' ? err : {};
+// Page de détails (e.g. liste des objets)
+	.get( '/detail.html', function ( req, res ) {
+		res.setHeader( 'Content-Type', "text/plain; charset=utf-8" );
+		res.end( 'Vous êtes sur une page de détail' );
+	} )
 	
-	// render the error page
-	res.status( err.status || 500 );
-	res.render( 'error' );
-} );
+	// Page de détails d'un objet
+	.get( '/pages/:idObjet/detail.html', function ( req, res ) {
+		res.setHeader( 'Content-Type', 'text/plain; charset=utf-8' );
+		res.end( 'Vous êtes sur la page de détail pour l\'objet ' + req.params.idObjet );
+	} )
+	
+	.use( function ( req, res, next ) {
+		res.setHeader( 'Content-Type', 'text/plain; charset=utf-8' );
+		res.status( 404 ).send( 'Vous êtes sur une page inconnue.' );
+	} );
 
-module.exports = app;
+server.listen( 8080 );
