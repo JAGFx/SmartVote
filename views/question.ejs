@@ -1,10 +1,11 @@
-<h1>Page Question n°<%= idQuestion %></h1>
-<h2><%= question.text %></h2>
-<form method="post" action="#valider">
-    <% for(let answer of answers) { %>
-    <div class="radio">
-        <label class=""><input type="radio" name="<%= question.id %>"><%= answer.text %></label>
-    </div>
-    <% } %>
-    <button type="submit" class="btn">Valider</button>
-</form>
+<h1 >Page Question n°<%= question.id %></h1 >
+<h2 ><%= question.text %></h2 >
+<form method="post" action="#valider" >
+	<% for( var i in question.answers ) {
+		var answer = question.answers[ i ]; %>
+	<div class="radio" >
+		<label class="" ><input type="radio" name="<%= question.id %>" ><%= answer.text %></label >
+	</div >
+	<% } %>
+	<button type="submit" class="btn" >Valider</button >
+</form >
