@@ -24,7 +24,21 @@ router.get( '/', function ( req, res ) {
 
 // Page de détails (e.g. liste des objets)
 	.get( '/manager.html', function ( req, res ) {
-		res.render( 'manager.ejs', [] );
+		req.params['students'] = [
+			{
+				id: 0,
+				nickname: 'charle'
+			},
+			{
+				id: 1,
+				nickname: 'Jean'
+			},
+			{
+				id: 2,
+				nickname: 'Albert'
+			}
+		];
+		res.render('manager.ejs', req.params);
 	} )
 	
 	.get( '/:idQuestion/question.html', function ( req, res, next ) {
