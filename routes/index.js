@@ -1,6 +1,6 @@
-var express     = require( 'express' );
-var router      = express.Router();
-const questions = [
+var express   = require( 'express' );
+var router    = express.Router();
+var questions = [
 	{
 		id:      1,
 		text:    "Une question ?",
@@ -18,7 +18,7 @@ const questions = [
 ];
 
 /* GET home page. */
-router.get( '/', function ( req, res, next ) {
+router.get( '/', function ( req, res ) {
 	res.render( 'index', { title: 'Express' } );
 } )
 
@@ -27,8 +27,12 @@ router.get( '/', function ( req, res, next ) {
 		res.render( 'manager.ejs', [] );
 	} )
 	
-	.get( '/:idQuestion/question.html', function ( req, res ) {
-		console.log( req.params.idQuestion );
+	.get( '/:idQuestion/question.html', function ( req, res, next ) {
+		//console.log( req.params.idQuestion, typeof questions[ req.params.idQuestion ] );
+		
+		if ( typeof req.params.idQuestion === "undefined"
+			|| typeof questions[ req.params.idQuestion ] === "undefined" )
+			next();
 		
 		res.render( 'question.ejs', {
 			question: questions[ req.params.idQuestion ]
