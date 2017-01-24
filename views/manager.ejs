@@ -1,1 +1,23 @@
 <h1>Page Manager</h1>
+
+<table>
+    <legend>Etudiants connectés</legend>
+    <thead>
+    <tr>
+        <th>Pseudo</th>
+        <th>Etat</tr>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for(var i in students) {
+        var student = students[i] %>
+    <tr>
+        <td><%= student.nickname %></td>
+        <td>...</td>
+        <td><button type="button">Kick</button></td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>
+</form>

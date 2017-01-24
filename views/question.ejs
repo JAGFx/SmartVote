@@ -1,7 +1,7 @@
 <h1>Page Question n°<%= idQuestion %></h1>
 <h2><%= question.text %></h2>
 <form method="post" action="#valider">
-    <% for(let answers of answer) { %>
+    <% for(let answer of answers) { %>
     <div class="radio">
         <label class=""><input type="radio" name="<%= question.id %>"><%= answer.text %></label>
     </div>
