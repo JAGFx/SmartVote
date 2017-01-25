@@ -19,7 +19,7 @@ var questions = [
 
 /* GET home page. */
 router.get( '/', function ( req, res ) {
-	res.render( 'index', { title: 'Express' } );
+	res.redirect('/users/login');
 } )
 
 // Page de détails (e.g. liste des objets)
@@ -41,7 +41,7 @@ router.get( '/', function ( req, res ) {
 		res.render( 'manager.ejs', req.params );
 	} )
 	
-	.get( '/:idQuestion/question.html', function ( req, res, next ) {
+	.get( '/:idQuestion/question', function ( req, res, next ) {
 		//console.log( req.params.idQuestion, typeof questions[ req.params.idQuestion ] );
 		
 		if ( typeof req.params.idQuestion === "undefined"
