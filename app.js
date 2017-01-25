@@ -21,8 +21,8 @@ app.use( logger( 'dev' ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( cookieParser() );
-app.use( express.static( path.join( __dirname, 'public/css' ) ) );
-app.use( express.static( path.join( __dirname, 'public/js' ) ) );
+app.use( express.static( path.join( __dirname, 'public/stylesheets' ) ) );
+app.use( express.static( path.join( __dirname, 'public/javascripts' ) ) );
 
 app.use( '/', index );
 app.use( '/users', users );
