@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+</head>
+<body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-  </body>
+    <form method="post">
+        <label for="nickname">Pseudo :</label>
+        <input type="text" id="nickname" name="nickname" placeholder="ex: Dupont" required>
+        <button type="submit" class="btn">Connexion</button>
+    </form>
+</body>
 </html>
