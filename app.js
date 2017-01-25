@@ -4,6 +4,7 @@ var favicon      = require( 'serve-favicon' );
 var logger       = require( 'morgan' );
 var cookieParser = require( 'cookie-parser' );
 var bodyParser   = require( 'body-parser' );
+var sockets = require( 'socket.io' );
 
 var index = require( './routes/index' );
 var users = require( './routes/users' );
@@ -20,7 +21,8 @@ app.use( logger( 'dev' ) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( cookieParser() );
-app.use( express.static( path.join( __dirname, 'public' ) ) );
+app.use( express.static( path.join( __dirname, 'public/css' ) ) );
+app.use( express.static( path.join( __dirname, 'public/js' ) ) );
 
 app.use( '/', index );
 app.use( '/users', users );
@@ -41,6 +43,18 @@ app.use( function ( err, req, res, next ) {
 	// render the error page
 	res.status( err.status || 500 );
 	res.render( 'error' );
+} );
+
+var io = sockets.listen( app.listen( 8000 ) );
+io.sockets.on( 'connection', function ( request ) {
+	console.log( 'Un utilisateur s\'est connecté avec la session  #' + request.id );
+	request.emit( 'info', { 'text': 'Vous êtes connecté !', 'sessionId': request.id } );
+	request.on( 'request', function ( message ) {
+		console.log( 'request' );
+		if ( message.command == 'identify' ) {
+			console.log( message );
+		}
+	} );
 } );
 
 module.exports = app;

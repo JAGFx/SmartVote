@@ -24,21 +24,21 @@ router.get( '/', function ( req, res ) {
 
 // Page de détails (e.g. liste des objets)
 	.get( '/manager.html', function ( req, res ) {
-		req.params['students'] = [
+		req.params[ 'students' ] = [
 			{
-				id: 0,
+				id:       0,
 				nickname: 'charle'
 			},
 			{
-				id: 1,
+				id:       1,
 				nickname: 'Jean'
 			},
 			{
-				id: 2,
+				id:       2,
 				nickname: 'Albert'
 			}
 		];
-		res.render('manager.ejs', req.params);
+		res.render( 'manager.ejs', req.params );
 	} )
 	
 	.get( '/:idQuestion/question.html', function ( req, res, next ) {
@@ -57,10 +57,10 @@ router.get( '/', function ( req, res ) {
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {
 		res.render( 'resultat.ejs', req.params );
 	} )
-	
-	.use( function ( req, res, next ) {
+
+/*.use( function ( req, res, next ) {
 		res.setHeader( 'Content-Type', 'text/plain; charset=utf-8' );
 		res.status( 404 ).send( 'Vous êtes sur une page inconnue.' );
-	} );
+ } );*/
 
 module.exports = router;

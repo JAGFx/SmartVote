@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html >
+
+	<head >
+		<link type="text/css" rel="stylesheet" href="/style.css" />
+		<script src="/jquery.js" ></script >
+	</head >
+
+
+	<body >
+		<p >Vous êtes sur la page d\'accueil</p >
+		<form >
+			<label for="pseudo" >Nom</label >
+			<input type="text" id="name" name="name" ><br />
+
+			<label for="pseudo" >Prénom</label >
+			<input type="text" id="firstname" name="firstname" ><br />
+
+			<label for="salon" >Salon</label >
+			<select name="salon" id="salon" >
+				<option value="MIAM" >MIAM</option >
+				<option value="ASSR" >ASSR</option >
+			</select ><br />
+
+			<button type="submit" >Connexion</button >
+		</form >
+	</body >
+
+	<script src="/socket.io/socket.io.js" ></script >
+	<script >
+		console.log( "connexion aux sockets" );
+
+		var socket = io.connect( 'http://localhost:8000' );
+		socket.on( 'info', function ( message ) {
+			console.log( 'Le serveur a un message pour vous :' + message.text + message.sessionId );
+		} );
+
+		$( 'form' ).submit( function ( e ) {
+			e.preventDefault();
+			formData = new FormData( this );
+
+			console.log( 'click sur connexion' );
+			socket.emit( 'request', {
+				command: 'identify',
+				data:    {
+					name:      formData.get( 'name' ),
+					firstname: formData.get( 'firstname' ),
+					salon:     formData.get( 'salon' )
+				}
+			} );
+		} )
+	</script >
+</html >
