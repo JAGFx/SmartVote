@@ -17,5 +17,6 @@ $( 'form' ).submit( function ( e ) {
             firstname: formData.get( 'firstname' ),
             salon:     formData.get( 'salon' )
         }
-    } );
-} )
+    });
+    window.location.replace('http://localhost:8000/0/question');
+});
