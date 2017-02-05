@@ -4,12 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var sockets = require('socket.io');
+var socket = require('socket.io');
+
+var app = express();
+var server = app.listen(8000);
+var io = socket(server);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var app = express();
+var students = [];
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -46,16 +50,31 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-var io = sockets.listen(app.listen(8000));
-io.sockets.on('connection', function (request) {
-    console.log('Un utilisateur s\'est connecté avec la session  #' + request.id);
-    request.emit('info', {'text': 'Vous êtes connecté !', 'sessionId': request.id});
-    request.on('request', function (message) {
-        console.log('request');
-        if (message.command == 'identify') {
-            console.log(message);
-        }
-    });
-});
+io.sockets.on('connection', newConnection);
+
+function newConnection(socket) {
+  console.log('new connection : '+ socket.id);
+
+  socket.on('newUser', sendUserData);
+
+  function sendUserData(data) {
+    socket.broadcast.emit('newUser', data);
+    console.log(data);
+  }
+
+}
+
+
+// io.sockets.on('connection', function (request) {
+//     console.log('Un utilisateur s\'est connecté avec la session  #' + request.id);
+//     request.emit('info', {'text': 'Vous êtes connecté !', 'sessionId': request.id});
+//     request.on('request', function (message) {
+//         console.log('request');
+//         if (message.command == 'identify') {
+//             console.log(message);
+//             students.push(message.data);
+//         }
+//     });
+// });
 
 module.exports = app;

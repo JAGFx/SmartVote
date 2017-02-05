@@ -1,3 +1,9 @@
-/**
- * Created by moreauhu on 26/01/17.
- */
+var socket;
+socket = io.connect('http://localhost:8000');
+
+socket.on('newUser', receiveUserData);
+
+function receiveUserData(data) {
+  console.log(data);
+  $('p').html(data.name);
+}

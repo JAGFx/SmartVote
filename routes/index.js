@@ -24,35 +24,23 @@ router.get( '/', function ( req, res ) {
 
 // Page de détails (e.g. liste des objets)
 	.get( '/manager.html', function ( req, res ) {
-		req.params[ 'students' ] = [
-			{
-				id:       0,
-				nickname: 'charle'
-			},
-			{
-				id:       1,
-				nickname: 'Jean'
-			},
-			{
-				id:       2,
-				nickname: 'Albert'
-			}
-		];
+		var students = [];
+		req.params[ 'students' ] = students;
 		res.render( 'manager.ejs', req.params );
 	} )
-	
+
 	.get( '/:idQuestion/question', function ( req, res, next ) {
 		//console.log( req.params.idQuestion, typeof questions[ req.params.idQuestion ] );
-		
+
 		if ( typeof req.params.idQuestion === "undefined"
 			|| typeof questions[ req.params.idQuestion ] === "undefined" )
 			next();
-		
+
 		res.render( 'question.ejs', {
 			question: questions[ req.params.idQuestion ]
 		} );
 	} )
-	
+
 	// Page de détails d'un objet
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {
 		res.render( 'resultat.ejs', req.params );

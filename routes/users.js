@@ -1,7 +1,7 @@
 var express = require( 'express' );
 var router  = express.Router();
 
-/* GET users listing. */
+/* GET clients listing. */
 router.get( '/login', function ( req, res, next ) {
 	res.render( 'login.ejs', req.params );
 } );
