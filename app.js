@@ -58,10 +58,10 @@ function newConnection(socket) {
   socket.on('newUser', sendUserData);
 
   function sendUserData(data) {
-    socket.broadcast.emit('newUser', data);
+    students.push(data);
+    socket.broadcast.emit('newUser', students);
     console.log(data);
   }
-
 }
 
 
