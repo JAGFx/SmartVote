@@ -13,7 +13,7 @@ var io = socket(server);
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var students = [];
+var students = {};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,23 +58,11 @@ function newConnection(socket) {
   socket.on('newUser', sendUserData);
 
   function sendUserData(data) {
-    students.push(data);
+    students[socket.id] = data;
+    // students.push(data);
     socket.broadcast.emit('newUser', students);
     console.log(data);
   }
 }
-
-
-// io.sockets.on('connection', function (request) {
-//     console.log('Un utilisateur s\'est connecté avec la session  #' + request.id);
-//     request.emit('info', {'text': 'Vous êtes connecté !', 'sessionId': request.id});
-//     request.on('request', function (message) {
-//         console.log('request');
-//         if (message.command == 'identify') {
-//             console.log(message);
-//             students.push(message.data);
-//         }
-//     });
-// });
 
 module.exports = app;
