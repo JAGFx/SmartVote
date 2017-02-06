@@ -56,12 +56,15 @@ function newConnection(socket) {
   console.log('new connection : '+ socket.id);
 
   socket.on('newUser', sendUserData);
+  socket.on('kickUser', kickUser);
 
   function sendUserData(data) {
     students[socket.id] = data;
-    // students.push(data);
     socket.broadcast.emit('newUser', students);
-    console.log(data);
+  }
+
+  function kickUser(socketId) {
+    //TODO redirection vers page d'accueil
   }
 }
 

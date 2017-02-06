@@ -8,9 +8,19 @@ function receiveUserData(data) {
   $('tbody').children().remove();
   for (var socketId in data) {
     student = data[socketId];
-    var newLine = $('tbody').append('<tr>');
+    var newLine = $('<tr>');
+
     newLine.append($('<td>').html(student.name))
-           .append($('<td>').html(student.nickname))
-           .append($('<td>').html(student.salon));
+      .append($('<td>').html(student.nickname))
+      .append($('<td>').html(student.salon))
+      .append($('<td>')
+        .append($('<button>').attr('id', socketId).html('Kick')
+        .click(function() {
+          socket.emit('kickUser', socketId);
+          console.log('kick user : '+ socketId);
+        })
+      ));
+
+    $('tbody').append(newLine);
   }
 }
