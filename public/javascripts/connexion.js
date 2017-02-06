@@ -10,7 +10,7 @@ $( 'form' ).submit(function(e) {
       name:      formData.get( 'name' ),
       nickname:  formData.get( 'firstname' ),
       salon:     formData.get( 'salon' )
-    }
+    };
     socket.emit('newUser', data);
     window.location.replace('http://localhost:8000/0/question');
 });

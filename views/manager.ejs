@@ -7,25 +7,18 @@
 
 <body>
 <h1>Page Manager</h1>
-<p></p>
+<ul class="list-students"></ul>
 <table>
     <legend>Etudiants connectés</legend>
     <thead>
     <tr>
-        <th>Pseudo</th>
-        <th>Etat</tr>
-        <th>Actions</th>
+        <th>Nom</th>
+        <th>Prénom</tr>
+        <th>Salon</th>
     </tr>
     </thead>
     <tbody>
-    <% for(var i in students) {
-        var student = students[i] %>
-    <tr>
-        <td><%= student.nickname %></td>
-        <td>...</td>
-        <td><button type="button">Kick</button></td>
-    </tr>
-    <% } %>
+      
     </tbody>
 </table>
 <script src="/socket.io/socket.io.js"></script>

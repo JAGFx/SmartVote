@@ -5,5 +5,12 @@ socket.on('newUser', receiveUserData);
 
 function receiveUserData(data) {
   console.log(data);
-  $('p').html(data.name);
+  $('tbody').children().remove();
+  for (var i in data) {
+    student = data[i];
+    var newLine = $('tbody').append('<tr>');
+    newLine.append($('<td>').html(student.name))
+           .append($('<td>').html(student.nickname))
+           .append($('<td>').html(student.salon));
+  }
 }
