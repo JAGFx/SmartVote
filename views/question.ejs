@@ -1,6 +1,7 @@
 <h1 >Page Question n°<%= question.id %></h1 >
 <h2 ><%= question.text %></h2 >
 <form method="post" action="#valider" >
+	<input name="student-id" value="<%= studentId %>" type="hidden">
 	<% for( var i in question.answers ) {
 		var answer = question.answers[ i ]; %>
 	<div class="radio" >

@@ -29,15 +29,21 @@ router.get( '/', function ( req, res ) {
 		res.render( 'manager.ejs', req.params );
 	} )
 
-	.get( '/:idQuestion/question', function ( req, res, next ) {
-		//console.log( req.params.idQuestion, typeof questions[ req.params.idQuestion ] );
+	.post( '/:idQuestion/question', function ( req, res, next ) {
+		student = {
+			name: req.param('name'),
+			nickname: req.param('nickname'),
+			salon: req.param('salon'),
+			socketId: req.param('socketId')
+		}
 
 		if ( typeof req.params.idQuestion === "undefined"
 			|| typeof questions[ req.params.idQuestion ] === "undefined" )
 			next();
 
 		res.render( 'question.ejs', {
-			question: questions[ req.params.idQuestion ]
+			question: questions[ req.params.idQuestion ],
+			student: student
 		} );
 	} )
 

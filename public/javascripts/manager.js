@@ -17,7 +17,6 @@ function receiveUserData(data) {
         .append($('<button>').attr('id', socketId).html('Kick')
         .click(function() {
           socket.emit('kickUser', socketId);
-          console.log('kick user : '+ socketId);
         })
       ));
 
