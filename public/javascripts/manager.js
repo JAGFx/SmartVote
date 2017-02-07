@@ -1,13 +1,13 @@
 var socket;
 socket = io.connect('http://localhost:8000');
 
-socket.on('newUser', receiveUserData);
+socket.on('students', receiveStudentsData);
 
-function receiveUserData(data) {
-  console.log(data);
+function receiveStudentsData(studentsData) {
+  console.log(studentsData);
   $('tbody').children().remove();
-  for (var socketId in data) {
-    student = data[socketId];
+  for (var socketId in studentsData) {
+    student = studentsData[socketId];
     var newLine = $('<tr>');
 
     newLine.append($('<td>').html(student.name))

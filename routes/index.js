@@ -30,21 +30,22 @@ router.get( '/', function ( req, res ) {
 	} )
 
 	.post( '/:idQuestion/question', function ( req, res, next ) {
-		student = {
-			name: req.param('name'),
-			nickname: req.param('nickname'),
-			salon: req.param('salon'),
-			socketId: req.param('socketId')
+		var student = {
+			name: req.body['name'],
+			nickname: req.body['nickname'],
+			salon: req.body['salon']
 		}
 
 		if ( typeof req.params.idQuestion === "undefined"
 			|| typeof questions[ req.params.idQuestion ] === "undefined" )
 			next();
 
-		res.render( 'question.ejs', {
-			question: questions[ req.params.idQuestion ],
-			student: student
-		} );
+		req.params[ 'student' ] = student;
+		req.params[ 'question' ] = questions[ req.params.idQuestion ];
+
+		console.log(req.params);
+
+		res.render('question.ejs', req.params);
 	} )
 
 	// Page de détails d'un objet
