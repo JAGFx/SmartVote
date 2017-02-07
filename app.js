@@ -53,11 +53,13 @@ app.use(function (err, req, res, next) {
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
+
   socket.on('newStudentConnection', addStudent);
   socket.on('kickUser', redirect);
 
   function addStudent(student) {
     students[socket.id] = student;
+
     socket.broadcast.emit('students', students);
   }
 
@@ -65,6 +67,7 @@ function newConnection(socket) {
     var client = io.sockets.connected[socketId];
     var destination = '/';
     delete(students[socketId]);
+
     socket.broadcast.emit('students', students);
     client.emit('redirect', destination);
   }
