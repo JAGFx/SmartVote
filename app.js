@@ -13,7 +13,7 @@ var io = socket(server);
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-var students = [];
+var students = {};
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,20 +53,20 @@ app.use(function (err, req, res, next) {
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
-  console.log('new connection : '+ socket.id);
+  socket.on('newStudentConnection', addStudent);
+  socket.on('kickUser', redirect);
 
-  socket.on('newUser', sendUserData);
-  socket.on('kickUser', kickUser);
-
-  function sendUserData(data) {
-    students.push(data);
-    console.log(students.indexOf(data));
-    socket.broadcast.emit('newUser', students);
+  function addStudent(student) {
+    students[socket.id] = student;
+    socket.broadcast.emit('students', students);
   }
 
-  function kickUser(socketId) {
-    console.log('KickUser : '+ socketId);
-    socket.broadcast.emit('kickStudentById', socketId);
+  function redirect(socketId) {
+    var client = io.sockets.connected[socketId];
+    var destination = '/';
+    delete(students[socketId]);
+    socket.broadcast.emit('students', students);
+    client.emit('redirect', destination);
   }
 }
 
