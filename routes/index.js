@@ -22,7 +22,6 @@ router.get( '/', function ( req, res ) {
 	res.redirect('/users/login');
 } )
 
-// Page de détails (e.g. liste des objets)
 	.get( '/manager.html', function ( req, res ) {
 		var students = [];
 		req.params[ 'students' ] = students;
@@ -43,19 +42,11 @@ router.get( '/', function ( req, res ) {
 		req.params[ 'student' ] = student;
 		req.params[ 'question' ] = questions[ req.params.idQuestion ];
 
-		console.log(req.params);
-
 		res.render('question.ejs', req.params);
 	} )
 
-	// Page de détails d'un objet
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {
 		res.render( 'resultat.ejs', req.params );
 	} )
-
-/*.use( function ( req, res, next ) {
-		res.setHeader( 'Content-Type', 'text/plain; charset=utf-8' );
-		res.status( 404 ).send( 'Vous êtes sur une page inconnue.' );
- } );*/
 
 module.exports = router;
