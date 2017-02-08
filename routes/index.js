@@ -2,14 +2,16 @@ var express   = require( 'express' );
 var router    = express.Router();
 var questions = [
 	{
-		id:      1,
+		id: 0,
 		text:    "Une question ?",
 		answers: [
 			{
+				id: 0,
 				text:  'answer 1',
 				value: true
 			},
 			{
+				id: 1,
 				text:  'answer2',
 				value: false
 			}

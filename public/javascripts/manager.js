@@ -2,6 +2,7 @@ var socket;
 socket = io.connect('http://localhost:8000');
 
 socket.on('students', receiveStudentsData);
+socket.on('studentAnswer', updateAnswerStatus);
 
 function receiveStudentsData(studentsData) {
   console.log(studentsData);
@@ -13,6 +14,7 @@ function receiveStudentsData(studentsData) {
     newLine.append($('<td>').html(student.name))
       .append($('<td>').html(student.nickname))
       .append($('<td>').html(student.salon))
+      .append($('<td>').attr('data-socketId', socketId).html('En attente de réponse'))
       .append($('<td>')
         .append($('<button>').attr('id', socketId).html('Kick')
         .click(function() {
@@ -22,4 +24,10 @@ function receiveStudentsData(studentsData) {
 
     $('tbody').append(newLine);
   }
+}
+
+function updateAnswerStatus(answerData) {
+  console.log('answerData.socketId');
+  console.log(answerData.socketId);
+  $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
 }
