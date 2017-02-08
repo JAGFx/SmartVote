@@ -1,12 +1,15 @@
 var socket;
 socket = io.connect('http://localhost:8000');
 
-socket.on('kickStudentById', kick);
+var student = {
+  name:      $("input[name='name']").attr('value'),
+  nickname:  $("input[name='nickname']").attr('value'),
+  salon:     $("input[name='salon']").attr('value')
+};
 
-function kick(socketId) {
-  console.log('socket.id = '+socket.id);
-  console.log('socketId = '+socketId);
-  if (socket.id == socketId) {
-    window.location.replace('http://localhost:8000');
-  }
-}
+console.log(student);
+socket.emit('newStudentConnection', student);
+
+socket.on('redirect', function(destination) {
+    window.location.href = destination;
+});

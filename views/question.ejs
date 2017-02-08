@@ -1,12 +1,17 @@
-<h1 >Page Question n°<%= question.id %></h1 >
-<h2 ><%= question.text %></h2 >
+<h1>Page Question n°<%= question.id %></h1>
+<h2><%= question.text %></h2>
 <form method="post" action="#valider" >
-	<input name="student-id" value="<%= studentId %>" type="hidden">
+	<input name="name" value="<%= student.name %>" type="hidden">
+	<input name="nickname" value="<%= student.nickname %>" type="hidden">
+	<input name="salon" value="<%= student.salon %>" type="hidden">
 	<% for( var i in question.answers ) {
 		var answer = question.answers[ i ]; %>
-	<div class="radio" >
+	<div class="radio">
 		<label class="" ><input type="radio" name="<%= question.id %>" ><%= answer.text %></label >
 	</div >
 	<% } %>
 	<button type="submit" class="btn" >Valider</button >
 </form >
+<script src="/socket.io/socket.io.js"></script>
+<script src="/jquery.js"></script>
+<script src="/question.js"></script>

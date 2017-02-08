@@ -1,5 +1,6 @@
 var express   = require( 'express' );
 var router    = express.Router();
+var mysql     = require( '../components/mysql_dao' );
 var questions = [
 	{
 		id:      1,
@@ -19,10 +20,39 @@ var questions = [
 
 /* GET home page. */
 router.get( '/', function ( req, res ) {
+	
+	// INSERT ENTITY
+	/*mysql.insertEntity( 'question', {
+		id:   2,
+		text: "Une question ?"
+	}, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// UPDATE
+	/*mysql.updateEntity( 'question', {
+		id:   2,
+		text: "Une PLOP omega ?"
+	}, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// DELETE
+	/*mysql.deleteEntity( 'question', 3, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// SELECT
+	/*var q = 'SELECT * FROM question';
+	mysql.find( q, [] , function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	//res.render( 'index.ejs', { title: '' } );
+	
 	res.redirect('/users/login');
 } )
 
-// Page de détails (e.g. liste des objets)
 	.get( '/manager.html', function ( req, res ) {
 		var students = [];
 		req.params[ 'students' ] = students;
@@ -30,31 +60,24 @@ router.get( '/', function ( req, res ) {
 	} )
 
 	.post( '/:idQuestion/question', function ( req, res, next ) {
-		student = {
-			name: req.param('name'),
-			nickname: req.param('nickname'),
-			salon: req.param('salon'),
-			socketId: req.param('socketId')
+		var student = {
+			name: req.body['name'],
+			nickname: req.body['nickname'],
+			salon: req.body['salon']
 		}
 
 		if ( typeof req.params.idQuestion === "undefined"
 			|| typeof questions[ req.params.idQuestion ] === "undefined" )
 			next();
 
-		res.render( 'question.ejs', {
-			question: questions[ req.params.idQuestion ],
-			student: student
-		} );
+		req.params[ 'student' ] = student;
+		req.params[ 'question' ] = questions[ req.params.idQuestion ];
+
+		res.render('question.ejs', req.params);
 	} )
 
-	// Page de détails d'un objet
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {
 		res.render( 'resultat.ejs', req.params );
 	} )
-
-/*.use( function ( req, res, next ) {
-		res.setHeader( 'Content-Type', 'text/plain; charset=utf-8' );
-		res.status( 404 ).send( 'Vous êtes sur une page inconnue.' );
- } );*/
 
 module.exports = router;
