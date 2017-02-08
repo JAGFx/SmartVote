@@ -69,7 +69,6 @@ function newConnection(socket) {
     var destination = '/';
     delete(students[socketId]);
 
-    socket.broadcast.emit('students', students);
     client.emit('redirect', destination);
   }
 

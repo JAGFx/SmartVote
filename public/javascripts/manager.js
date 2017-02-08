@@ -9,7 +9,7 @@ function receiveStudentsData(studentsData) {
   $('tbody').children().remove();
   for (var socketId in studentsData) {
     student = studentsData[socketId];
-    var newLine = $('<tr>');
+    var newLine = $('<tr>').attr('data-socketId', socketId);
 
     newLine.append($('<td>').html(student.name))
       .append($('<td>').html(student.nickname))
@@ -19,6 +19,7 @@ function receiveStudentsData(studentsData) {
         .append($('<button>').attr('id', socketId).html('Kick')
         .click(function() {
           socket.emit('kickUser', socketId);
+          newLine.remove();
         })
       ));
 
