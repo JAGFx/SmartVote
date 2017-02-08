@@ -52,11 +52,12 @@ router.get( '/', function ( req, res ) {
 		console.log( err, res );
 	} );*/
 	
-	QuestionService.findAll( function ( questions ) {
+	// Example User QuestionService
+	/*QuestionService.findAll( function ( questions ) {
 		console.log( questions );
 		
 		res.render( 'index.ejs', { title: questions.length } );
-	} );
+	 } );*/
 	//res.render( 'index.ejs', { title: '' } );
 	
 	//res.redirect('/users/login');
