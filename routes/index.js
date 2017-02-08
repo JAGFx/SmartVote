@@ -1,5 +1,6 @@
 var express   = require( 'express' );
 var router    = express.Router();
+var mysql     = require( '../components/mysql_dao' );
 var questions = [
 	{
 		id: 0,
@@ -21,6 +22,36 @@ var questions = [
 
 /* GET home page. */
 router.get( '/', function ( req, res ) {
+	
+	// INSERT ENTITY
+	/*mysql.insertEntity( 'question', {
+		id:   2,
+		text: "Une question ?"
+	}, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// UPDATE
+	/*mysql.updateEntity( 'question', {
+		id:   2,
+		text: "Une PLOP omega ?"
+	}, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// DELETE
+	/*mysql.deleteEntity( 'question', 3, function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	// SELECT
+	/*var q = 'SELECT * FROM question';
+	mysql.find( q, [] , function ( err, res ) {
+		console.log( err, res );
+	} );*/
+	
+	//res.render( 'index.ejs', { title: '' } );
+	
 	res.redirect('/users/login');
 } )
 
