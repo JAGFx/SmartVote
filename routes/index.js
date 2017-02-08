@@ -63,16 +63,15 @@ router.get( '/', function ( req, res ) {
 	//res.redirect('/users/login');
 } )
 
-.get( '/manager.html', function ( req, res ) {
+.get('/manager.html', function ( req, res ) {
 	var students = [];
 
 	QuestionService.findAll(function(questions) {
+		console.log( 'questions' );
 		console.log( questions );
-		req.params['students'] = students;
-		req.params['questions'] = questions;
 
-		res.render('manager.ejs', req.params );
-	 } );
+		res.render('manager.ejs', { questions: questions } );
+	 });
 } )
 
 	.post( '/:idQuestion/question', function ( req, res, next ) {

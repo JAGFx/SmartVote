@@ -36,9 +36,9 @@
             <% for (questionId in questions) {
                 var question = questions[questionId] %>
                 <tr>
-                <% for (answerId in answers) {
-                    var answer = answers[answerId] %>
-                    <td><%= answerId %>: <%= answer.text %></td>
+                <% for (answerId in question.answers) {
+                    var answer = question.answers[answerId] %>
+                    <td><%= answer.id %>: <%= answer.text %></td>
                 <% } %>
                 </tr>
             <% } %>
@@ -64,7 +64,7 @@
             {"label" : "reponseC","nb" : 90 }
             ]
 
-           generatechart(data_question1,".chart",".button-change");
+           generatechart(data_question,".chart",".button-change");
         </script>
 
 
