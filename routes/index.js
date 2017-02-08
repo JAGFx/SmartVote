@@ -24,7 +24,7 @@ var questions = [
 
 /* GET home page. */
 router.get( '/', function ( req, res ) {
-	
+
 	// INSERT ENTITY
 	/*mysql.insertEntity( 'question', {
 		id:   2,
@@ -32,7 +32,7 @@ router.get( '/', function ( req, res ) {
 	}, function ( err, res ) {
 		console.log( err, res );
 	} );*/
-	
+
 	// UPDATE
 	/*mysql.updateEntity( 'question', {
 		id:   2,
@@ -40,34 +40,40 @@ router.get( '/', function ( req, res ) {
 	}, function ( err, res ) {
 		console.log( err, res );
 	} );*/
-	
+
 	// DELETE
 	/*mysql.deleteEntity( 'question', 3, function ( err, res ) {
 		console.log( err, res );
 	} );*/
-	
+
 	// SELECT
 	/*var q = 'SELECT * FROM question';
 	mysql.find( q, [] , function ( err, res ) {
 		console.log( err, res );
 	} );*/
-	
+
 	// Example User QuestionService
 	/*QuestionService.findAll( function ( questions ) {
 		console.log( questions );
-		
+
 		res.render( 'index.ejs', { title: questions.length } );
 	 } );*/
 	//res.render( 'index.ejs', { title: '' } );
-	
+
 	//res.redirect('/users/login');
 } )
 
-	.get( '/manager.html', function ( req, res ) {
-		var students = [];
-		req.params[ 'students' ] = students;
-		res.render( 'manager.ejs', req.params );
-	} )
+.get( '/manager.html', function ( req, res ) {
+	var students = [];
+
+	QuestionService.findAll(function(questions) {
+		console.log( questions );
+		req.params['students'] = students;
+		req.params['questions'] = questions;
+
+		res.render('manager.ejs', req.params );
+	 } );
+} )
 
 	.post( '/:idQuestion/question', function ( req, res, next ) {
 		var student = {

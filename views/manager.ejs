@@ -5,77 +5,69 @@
     <body>
 
 
-        <article>
-            <h1>Page Manager</h1>
-            <table>
+      <article>
+          <h1>Page Manager</h1>
+          <table id="table-students">
             <legend>Etudiants connectés</legend>
             <thead>
-            <tr>
-            <th>Nom</th>
-            <th>Prénom</tr>
-            <th>Salon</th>
-            <th>Statut</th>
-            <th>Action</th>
-            </tr>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</tr>
+                <th>Salon</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody>
-
             </tbody>
-            </table>
-            <div class="infos">
-                <h4>Informations : </h4>
-            </div>
+          </table>
+          <table id="table-questions">
+            <legend>Liste des questions</legend>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prénom</tr>
+                <th>Salon</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% for (questionId in questions) {
+                var question = questions[questionId] %>
+                <tr>
+                <% for (answerId in answers) {
+                    var answer = answers[answerId] %>
+                    <td><%= answerId %>: <%= answer.text %></td>
+                <% } %>
+                </tr>
+            <% } %>
+            </tbody>
+          </table>
+          <div class="infos">
+              <h4>Informations : </h4>
+          </div>
 
             <div class="container maintcontent text-midle">
-            <button class="button-change1">Changement</button>
-            <div class="row chart1">
-            </div>
-            <button class="button-change2">Changement</button>
-            <div class="row chart2">
-            </div>
-            <button class="button-change3">Changement</button>
-            <div class="row chart3">
-            </div>
+            <button class="button-change">Changement</button>
+            <div class="row chart">
         </article>
-
 
         <script type="text/javascript">
         // --------------------------------------------
         // FAKE DATA
         // --------------------------------------------
-            var data_question1 =
+            var data_question =
             [
             {"label" : "reponseA","nb" : 12 },
             {"label" : "reponseB","nb" : 34 },
             {"label" : "reponseC","nb" : 90 }
             ]
-            var  data_question2 =
-            [
-            {"label" : "reponseA","nb" : 12 },
-            {"label" : "reponseB","nb" : 34 },
-            {"label" : "reponseC","nb" : 10 },
-            {"label" : "reponseD","nb" : 89 },
-            {"label" : "reponseE","nb" : 30 },
-            {"label" : "reponseF","nb" : 90 }
-            ]
 
-            var  data_question3 =
-            [
-            {"label" : "reponseA","nb" : 12 },
-            {"label" : "reponseB","nb" : 34 },
-            {"label" : "reponseC","nb" : 10 },
-            {"label" : "reponseD","nb" : 89 },
-            {"label" : "reponseE","nb" : 30 },
-            {"label" : "reponseF","nb" : 90 },
-            {"label" : "reponseG","nb" : 123 },
-            {"label" : "reponseH","nb" : 89 },
-            {"label" : "reponseI","nb" : 100 },
-            {"label" : "reponseJ","nb" : 124 }
-            ]
-           generatechart(data_question1,".chart1",".button-change1");
-          //  generatechart(data_question2,".chart2",".button-change2");
-          //  generatechart(data_question3,".chart3",".button-change3");
+           generatechart(data_question1,".chart",".button-change");
         </script>
+
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="/manager.js"></script>
 
