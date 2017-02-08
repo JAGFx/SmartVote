@@ -1,16 +1,20 @@
 var express   = require( 'express' );
 var router    = express.Router();
-var mysql     = require( '../components/mysql_dao' );
+//var mysql     = require( '../components/mysql_dao' );
+var QuestionService = require( '../services/question.service.js' );
+
 var questions = [
 	{
 		id:      1,
 		text:    "Une question ?",
 		answers: [
 			{
+				id:    1,
 				text:  'answer 1',
 				value: true
 			},
 			{
+				id:    2,
 				text:  'answer2',
 				value: false
 			}
@@ -48,9 +52,14 @@ router.get( '/', function ( req, res ) {
 		console.log( err, res );
 	} );*/
 	
+	QuestionService.findAll( function ( questions ) {
+		console.log( questions );
+		
+		res.render( 'index.ejs', { title: questions.length } );
+	} );
 	//res.render( 'index.ejs', { title: '' } );
 	
-	res.redirect('/users/login');
+	//res.redirect('/users/login');
 } )
 
 	.get( '/manager.html', function ( req, res ) {
@@ -64,7 +73,7 @@ router.get( '/', function ( req, res ) {
 			name: req.body['name'],
 			nickname: req.body['nickname'],
 			salon: req.body['salon']
-		}
+		};
 
 		if ( typeof req.params.idQuestion === "undefined"
 			|| typeof questions[ req.params.idQuestion ] === "undefined" )
@@ -78,6 +87,6 @@ router.get( '/', function ( req, res ) {
 
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {
 		res.render( 'resultat.ejs', req.params );
-	} )
+	} );
 
 module.exports = router;
