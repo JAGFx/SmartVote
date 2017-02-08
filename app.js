@@ -56,6 +56,7 @@ function newConnection(socket) {
 
   socket.on('newStudentConnection', addStudent);
   socket.on('kickUser', redirect);
+  socket.on('answer', sendAnswer)
 
   function addStudent(student) {
     students[socket.id] = student;
@@ -68,8 +69,21 @@ function newConnection(socket) {
     var destination = '/';
     delete(students[socketId]);
 
-    socket.broadcast.emit('students', students);
     client.emit('redirect', destination);
+  }
+
+  function sendAnswer(dataAnswer) {
+    for (socketId in students) {
+      student = students[socketId];
+      if (student.name == dataAnswer.student.name &&
+          student.nickname == dataAnswer.student.nickname &&
+          student.salon == dataAnswer.student.salon) {
+        dataAnswer.socketId = socketId;
+        break;
+      }
+    }
+
+    socket.broadcast.emit('studentAnswer', dataAnswer);
   }
 }
 

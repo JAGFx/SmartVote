@@ -5,7 +5,7 @@ var QuestionService = require( '../services/question.service.js' );
 
 var questions = [
 	{
-		id:      1,
+		id: 0,
 		text:    "Une question ?",
 		answers: [
 			{
