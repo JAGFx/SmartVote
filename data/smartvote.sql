@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2017 at 01:37 PM
+-- Generation Time: Feb 08, 2017 at 03:38 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -34,7 +34,7 @@ CREATE TABLE `answers` (
   `id`   INT(11)      NOT NULL,
   `text` VARCHAR(255) NOT NULL
 )
-  ENGINE = MyISAM
+  ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 -- --------------------------------------------------------
@@ -44,7 +44,7 @@ CREATE TABLE `answers` (
 --
 
 CREATE TABLE `question` (
-  `id`   int(11) NOT NULL,
+  `id`   INT(11) NOT NULL,
   `text` TEXT    NOT NULL,
   `tags` JSON DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -60,7 +60,7 @@ CREATE TABLE `question_answer` (
   `answer_id`   INT(11)     NOT NULL,
   `value`       VARCHAR(50) NOT NULL
 )
-  ENGINE = MyISAM
+  ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
 --
@@ -86,22 +86,6 @@ ALTER TABLE `question_answer`
   ADD KEY `question_answer_question_id_fk` (`question_id`),
   ADD KEY `question_answer_answers_id_fk` (`answer_id`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `answers`
---
-ALTER TABLE `answers`
-  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 4;
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
