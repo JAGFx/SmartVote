@@ -74,11 +74,6 @@ function newConnection(socket) {
   }
 
   function sendAnswer(dataAnswer) {
-    console.log(dataAnswer);
-    console.log(dataAnswer.student);
-
-
-    console.log(students);
     for (socketId in students) {
       student = students[socketId];
       if (student.name == dataAnswer.student.name &&

@@ -5,7 +5,7 @@ socket.on('students', receiveStudentsData);
 socket.on('studentAnswer', updateAnswerStatus);
 
 function receiveStudentsData(studentsData) {
-  console.log(studentsData);
+  console.log($('tbody'));
   $('tbody').children().remove();
   for (var socketId in studentsData) {
     student = studentsData[socketId];
@@ -27,7 +27,5 @@ function receiveStudentsData(studentsData) {
 }
 
 function updateAnswerStatus(answerData) {
-  console.log('answerData.socketId');
-  console.log(answerData.socketId);
   $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
 }
