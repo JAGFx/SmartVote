@@ -60,7 +60,7 @@ router.get( '/', function ( req, res ) {
 	 } );*/
 	//res.render( 'index.ejs', { title: '' } );
 
-	//res.redirect('/users/login');
+	res.redirect('/users/login');
 } )
 
 .get('/manager.html', function ( req, res ) {

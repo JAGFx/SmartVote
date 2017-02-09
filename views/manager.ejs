@@ -1,67 +1,84 @@
-<!DOCTYPE html>
-<html>
 <% include layout/header %>
-
-    <body>
-
-
-      <article>
-          <h1>Page Manager</h1>
-          <table id="table-students">
-            <legend>Etudiants connectés</legend>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Prénom</tr>
-                <th>Salon</th>
-                <th>Statut</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            </tbody>
-          </table>
-          <table id="table-questions">
-            <legend>Liste des questions</legend>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>Prénom</tr>
-                <th>Salon</th>
-                <th>Statut</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            <% for (questionId in questions) {
-                var question = questions[questionId] %>
-                <tr>
-                <% for (answerId in question.answers) {
-                    var answer = question.answers[answerId] %>
-                    <td><%= answer.id %>: <%= answer.text %></td>
-                <% } %>
-                </tr>
-            <% } %>
-            </tbody>
-          </table>
-          <div class="infos">
-              <h4>Informations : </h4>
-          </div>
-
+      <ul class="tab">
+        <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
+        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
+      </ul>
+          <div id="students" class="tabcontent" style="display: block;">
+            <h1>Page Manager</h1>
+            <div style="overflow-x:auto;">
+              <table id="table-students ">
+                <legend>Etudiants connectés</legend>
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Prénom</tr>
+                    <th>Salon</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+            <div class="infos">
+                <h4>Informations : </h4>
+            </div>
             <div class="container maintcontent text-midle">
-            <button class="button-change">Changement</button>
+              <button class="button-change">Changement</button>
+            </div>
             <div class="row chart">
-        </article>
+            </div>
+          </div>
+          <div id="questions" class="tabcontent">
+            <div style="overflow-x:auto;">
+              <table id="table-questions">
+                <legend>Liste des questions</legend>
+                <thead>
+                  <tr>
+                    <th>Question</tr>
+                    <th>Réponses</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <% for (questionId in questions) {
+                    var question = questions[questionId] %>
+                    <tr>
+                      <td>#<%= question.id %> <%= question.text %></td>
+                      <td>
+                        <ul>
+                      <% for (answerId in question.answers) {
+                          var answer = question.answers[answerId];
+                          console.log(answer); %>
+                          <li>
+                            #<%= answer.id %> <%= answer.text %>
+                            <% if (answer.value) { %>
+                              <span class="badge success">Vraie
+                            <% } else { %>
+                              <span class="badge failed">Faux
+                            <% } %>
+                          </li>
+                      <% } %>
+                        </ul>
+                      </td>
+                      <td><button>Envoyer</button></td>
+                    </tr>
+                <% } %>
+                </tbody>
+              </table>
+            </div>
+
+        </div>
 
         <script type="text/javascript">
         // --------------------------------------------
         // FAKE DATA
         // --------------------------------------------
-            var data_question =
-            [
-            {"label" : "reponseA","nb" : 12 },
-            {"label" : "reponseB","nb" : 34 },
-            {"label" : "reponseC","nb" : 90 }
+            var data_question = [
+              {"label" : "reponseA","nb" : 12 },
+              {"label" : "reponseB","nb" : 34 },
+              {"label" : "reponseC","nb" : 90 }
             ]
 
            generatechart(data_question,".chart",".button-change");
@@ -70,6 +87,7 @@
 
         <script src="/socket.io/socket.io.js"></script>
         <script src="/manager.js"></script>
-
+        <link src="/manager.js"></script>
+        <link rel='stylesheet' href='/manager.css' />
     </body>
 </html>
