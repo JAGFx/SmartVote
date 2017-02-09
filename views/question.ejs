@@ -1,17 +1,16 @@
-<h1>Question Party</h1>
+<si></si><h1>Question Party</h1>
 <div id="questions" class="tabcontent">
 <% for (questionId in questions) {
 		var question = questions[questionId]; %>
 		<div class="question" id="<%= question.id %>">
-			<form>
+			<form data-question-id="<%= question.id %>">
 				<h2><%= question.text %></h2>
-				<group
 				<% for (answerId in question.answers) {
 				var answer = question.answers[answerId];
 				console.log(answer); %>
-					<input type="radio" name="<%= question.id %>" value="<%= answer.id %>"> <%= answer.text %>
+					<input type="radio" name="answers" value="<%= answer.id %>"> <%= answer.text %>
 				<% } %>
-				<button data-question-id="<%= question.id %>" onclick="confirmAnswer(event)">Confirmer</button>
+				<button type="submit">Confirmer</button>
 			</form>
 		</div>
 <% } %>

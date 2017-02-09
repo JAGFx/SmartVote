@@ -43,11 +43,15 @@ function displayQuestionById(questionId) {
     $('div#'+questionId).css('display', "block");
 }
 
-function confirmAnswer(evt) {
-    var questionButton = $(evt.currentTarget);
-    var questionId = questionButton.data('questionId');
-    console.log(questionId);
-    questionButton.parent().find("input[data-selected='true']");
-    console.log(questionButton.parent().find("input[data-selected='true']"));
-    console.log(questionButton.parent().find("input[data-selected='true']").val());
-}
+$('form').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    var form = $(this);
+    var questionId = form.data('questionId');
+    var answerId = formData.get('answers');
+
+    socket.emit('answerByQuestionId', {
+        questionId: form.data('questionId'),
+        answerId: answerId
+    });
+});
