@@ -59,7 +59,6 @@ function newConnection(socket) {
   socket.on('answer', sendAnswer);
   socket.on('displayQuestionById', sendQuestionId);
 
-
   function addStudent(student) {
     students[socket.id] = student;
 
