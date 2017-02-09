@@ -1,4 +1,7 @@
 <% include layout/header %>
+<script type='text/javascript'>
+    var questions = <%-JSON.stringify(questions)%>
+</script>
       <ul class="tab">
         <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
         <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
@@ -76,23 +79,8 @@
 
         </div>
 
-        <script type="text/javascript">
-        // --------------------------------------------
-        // FAKE DATA
-        // --------------------------------------------
-            var data_question = [
-              {"label" : "reponseA","nb" : 12 },
-              {"label" : "reponseB","nb" : 34 },
-              {"label" : "reponseC","nb" : 90 }
-            ]
-
-           generatechart(data_question,".chart",".button-change");
-        </script>
-
-
         <script src="/socket.io/socket.io.js"></script>
         <script src="/manager.js"></script>
-        <link src="/manager.js"></script>
         <link rel='stylesheet' href='/manager.css' />
     </body>
 </html>

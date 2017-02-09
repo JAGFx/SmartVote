@@ -1,12 +1,8 @@
 var socket;
 socket = io.connect('http://localhost:8000');
+// var questionsService = require('../services/questions.service');
 
-var data_question = [
-  {"label" : "Réponse 1", "nb" : 0 },
-  {"label" : "Réponse 2", "nb" : 0 },
-  {"label" : "Réponse 3", "nb" : 0 },
-  {"label" : "Réponse 4", "nb" : 0 }
-]
+var dataQuestion = [];
 
 socket.on('students', receiveStudentsData);
 socket.on('studentAnswer', updateAnswerStatus);
@@ -35,12 +31,23 @@ function receiveStudentsData(studentsData) {
 
 function updateAnswerStatus(answerData) {
     $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
-    data_question[answerData.answerId].nb++;
-    generatechart(data_question,".chart",".button-change");
+    dataQuestion[answerData.answerId].nb++;
+    generatechart(dataQuestion,".chart",".button-change");
 }
 
 function sendQuestion(evt) {
-    socket.emit("displayQuestionById", $(evt.currentTarget).data('questionId'));
+    var questionId = $(evt.currentTarget).data('questionId');
+    var question = questions[questionId];
+    initDataQuestion(question);
+    socket.emit("displayQuestionById", questionId);
+}
+
+function initDataQuestion(question) {
+    dataQuestion = [];
+    for (var i in question.answers) {
+        var answer = question.answers[i];
+        dataQuestion.push({"label": answer.text, "nb": 0});
+    }
 }
 
 function openTab(evt, tabName) {
