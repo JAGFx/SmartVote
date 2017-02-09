@@ -56,7 +56,9 @@ function newConnection(socket) {
 
   socket.on('newStudentConnection', addStudent);
   socket.on('kickUser', redirect);
-  socket.on('answer', sendAnswer)
+  socket.on('answer', sendAnswer);
+  socket.on('displayQuestionById', sendQuestionId);
+
 
   function addStudent(student) {
     students[socket.id] = student;
@@ -84,6 +86,10 @@ function newConnection(socket) {
     }
 
     socket.broadcast.emit('studentAnswer', dataAnswer);
+  }
+
+  function sendQuestionId(questionId) {
+      socket.broadcast.emit("receiveQuestionId", questionId);
   }
 }
 

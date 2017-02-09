@@ -36,7 +36,7 @@
                 <legend>Liste des questions</legend>
                 <thead>
                   <tr>
-                    <th>Question</tr>
+                    <th>Question</th>
                     <th>Réponses</th>
                     <th>Actions</th>
                   </tr>
@@ -62,7 +62,12 @@
                       <% } %>
                         </ul>
                       </td>
-                      <td><button>Envoyer</button></td>
+                      <td>
+                        <button data-question-id="<%= question.id %>"
+                            data-answer-id="<%= answer.id %>"
+                            onclick="sendQuestion(event)">Envoyer
+                        </button>
+                      </td>
                     </tr>
                 <% } %>
                 </tbody>

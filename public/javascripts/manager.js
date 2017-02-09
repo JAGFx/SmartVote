@@ -50,3 +50,7 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+function sendQuestion(evt) {
+    socket.emit("displayQuestionById", $(evt.currentTarget).data('questionId'));
+}

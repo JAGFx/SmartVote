@@ -7,25 +7,28 @@ var student = {
   salon:     $("input[name='salon']").val()
 };
 
+$(function() {
+    $('div.question').css('display', 'none');
+});
+
 socket.emit('newStudentConnection', student);
 
 socket.on('redirect', function(destination) {
     window.location.href = destination;
 });
+socket.on('receiveQuestionId', displayQuestionById);
 
 $('form').submit(function(e) {
-  e.preventDefault();
-  var buttonChecked = $("input[type=radio]:checked");
+    e.preventDefault();
+    var buttonChecked = $("input[type=radio]:checked");
 
-  console.log({
-    answerId : buttonChecked.val(),
-    questionId: buttonChecked.attr('name'),
-    student: student
-  });
-
-  socket.emit('answer', {
-    answerId : buttonChecked.val(),
-    questionId: buttonChecked.attr('name'),
-    student: student
-  });
+    socket.emit('answer', {
+        answerId : buttonChecked.val(),
+        questionId: buttonChecked.attr('name'),
+        student: student
+    });
 });
+
+function displayQuestionById(questionId) {
+    $('div#'+questionId).css('display', "block");
+}

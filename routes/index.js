@@ -64,14 +64,9 @@ router.get( '/', function ( req, res ) {
 } )
 
 .get('/manager.html', function ( req, res ) {
-	var students = [];
-
 	QuestionService.findAll(function(questions) {
-		console.log( 'questions' );
-		console.log( questions );
-
 		res.render('manager.ejs', { questions: questions } );
-	 });
+	});
 } )
 
 	.post( '/:idQuestion/question', function ( req, res, next ) {
@@ -81,14 +76,17 @@ router.get( '/', function ( req, res ) {
 			salon: req.body['salon']
 		};
 
-		if ( typeof req.params.idQuestion === "undefined"
-			|| typeof questions[ req.params.idQuestion ] === "undefined" )
-			next();
+		// if ( typeof req.params.idQuestion === "undefined"
+		// 	|| typeof questions[ req.params.idQuestion ] === "undefined" )
+		// 	next();
 
 		req.params[ 'student' ] = student;
-		req.params[ 'question' ] = questions[ req.params.idQuestion ];
+		// req.params[ 'question' ] = questions[ req.params.idQuestion ];
 
-		res.render('question.ejs', req.params);
+		QuestionService.findAll(function(questions) {
+			req.params['questions'] = questions;
+			res.render('question.ejs', req.params);
+		});
 	} )
 
 	.get( '/:idQuestion/resultat.html', function ( req, res ) {

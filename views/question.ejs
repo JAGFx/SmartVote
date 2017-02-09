@@ -1,5 +1,26 @@
-<h1>Page Question n°<%= question.id %></h1>
-<h2><%= question.text %></h2>
+<h1>Question Party</h1>
+<div id="questions" class="tabcontent">
+<% for (questionId in questions) {
+		var question = questions[questionId]; %>
+		<div class="question" id="<%= question.id %>">
+			<h2><%= question.text %></h2>
+			<ul>
+			<% for (answerId in question.answers) {
+			var answer = question.answers[answerId];
+			console.log(answer); %>
+				<li>
+				  <%= answer.id %>. <%= answer.text %>
+				</li>
+			<% } %>
+			</ul>
+			<button data-question-id="<%= question.id %>"
+			  data-answer-id="<%= answer.id %>"
+			  onclick="sendQuestion(event)">Envoyer
+			</button>
+		</div>
+<% } %>
+
+
 <form method="post" action="#valider" >
 	<input name="name" value="<%= student.name %>" type="hidden">
 	<input name="nickname" value="<%= student.nickname %>" type="hidden">
