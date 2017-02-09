@@ -1,6 +1,13 @@
 var socket;
 socket = io.connect('http://localhost:8000');
 
+var data_question = [
+  {"label" : "Réponse 1", "nb" : 0 },
+  {"label" : "Réponse 2", "nb" : 0 },
+  {"label" : "Réponse 3", "nb" : 0 },
+  {"label" : "Réponse 4", "nb" : 0 }
+]
+
 socket.on('students', receiveStudentsData);
 socket.on('studentAnswer', updateAnswerStatus);
 
@@ -27,7 +34,13 @@ function receiveStudentsData(studentsData) {
 }
 
 function updateAnswerStatus(answerData) {
-  $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
+    $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
+    data_question[answerData.answerId].nb++;
+    generatechart(data_question,".chart",".button-change");
+}
+
+function sendQuestion(evt) {
+    socket.emit("displayQuestionById", $(evt.currentTarget).data('questionId'));
 }
 
 function openTab(evt, tabName) {
@@ -49,8 +62,4 @@ function openTab(evt, tabName) {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
-}
-
-function sendQuestion(evt) {
-    socket.emit("displayQuestionById", $(evt.currentTarget).data('questionId'));
 }

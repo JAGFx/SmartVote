@@ -34,7 +34,6 @@ $('form').submit(function(e) {
 
     socket.emit('answer', {
         answerId : buttonChecked.val(),
-        questionId: buttonChecked.attr('name'),
         student: student
     });
 });
@@ -43,15 +42,10 @@ function displayQuestionById(questionId) {
     $('div#'+questionId).css('display', "block");
 }
 
-$('form').submit(function(e) {
-    e.preventDefault();
-    var formData = new FormData(this);
-    var form = $(this);
-    var questionId = form.data('questionId');
-    var answerId = formData.get('answers');
-
-    socket.emit('answerByQuestionId', {
-        questionId: form.data('questionId'),
-        answerId: answerId
-    });
-});
+// $('form').submit(function(e) {
+//     e.preventDefault();
+//     var formData = new FormData(this);
+//     var answerId = formData.get('answers');
+//
+//     socket.emit('answerByQuestionId', {answerId: answerId});
+// });

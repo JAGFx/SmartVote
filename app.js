@@ -50,46 +50,48 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
+// socket parts
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
+    socket.on('newStudentConnection', addStudent);
+    socket.on('kickUser', redirect);
+    socket.on('answer', sendAnswer);
+    socket.on('displayQuestionById', sendQuestionId);
 
-  socket.on('newStudentConnection', addStudent);
-  socket.on('kickUser', redirect);
-  socket.on('answer', sendAnswer);
-  socket.on('displayQuestionById', sendQuestionId);
-
-  function addStudent(student) {
-    students[socket.id] = student;
-
-    socket.broadcast.emit('students', students);
-  }
-
-  function redirect(socketId) {
-    var client = io.sockets.connected[socketId];
-    var destination = '/';
-    delete(students[socketId]);
-
-    client.emit('redirect', destination);
-  }
-
-  function sendAnswer(dataAnswer) {
-    for (socketId in students) {
-      student = students[socketId];
-      if (student.name == dataAnswer.student.name &&
-          student.nickname == dataAnswer.student.nickname &&
-          student.salon == dataAnswer.student.salon) {
-        dataAnswer.socketId = socketId;
-        break;
-      }
+    function addStudent(student) {
+        students[socket.id] = student;
+        socket.broadcast.emit('students', students);
     }
 
-    socket.broadcast.emit('studentAnswer', dataAnswer);
-  }
+    function redirect(socketId) {
+        var client = io.sockets.connected[socketId];
+        delete(students[socketId]);
+        client.emit('redirect', '/');
+    }
 
-  function sendQuestionId(questionId) {
-      socket.broadcast.emit("receiveQuestionId", questionId);
-  }
+    function sendAnswer(data) {
+        data.socketId = getSocketIdFromData(data);
+        socket.broadcast.emit('studentAnswer', data);
+    }
+
+    function sendQuestionId(questionId) {
+        socket.broadcast.emit("receiveQuestionId", questionId);
+    }
+
+    function getSocketIdFromData(data) {
+        for (socketId in students) {
+            student = students[socketId];
+            if (student.name == data.student.name &&
+                student.nickname == data.student.nickname &&
+                student.salon == data.student.salon) {
+
+                return socketId;
+            }
+        }
+
+        return false;
+    }
 }
 
 module.exports = app;
