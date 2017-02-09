@@ -3,16 +3,16 @@
 <% for (questionId in questions) {
 		var question = questions[questionId]; %>
 		<div class="question" id="<%= question.id %>">
-			<h2><%= question.text %></h2>
-			<% for (answerId in question.answers) {
-			var answer = question.answers[answerId];
-			console.log(answer); %>
-				<label class="" ><input type="radio" name="<%= question.id %>" value="<%= answer.id %>"> <%= answer.text %></label>
-			<% } %>
-			<button data-question-id="<%= question.id %>"
-			  data-answer-id="<%= answer.id %>"
-			  onclick="sendQuestion(event)">Envoyer
-			</button>
+			<form>
+				<h2><%= question.text %></h2>
+				<group
+				<% for (answerId in question.answers) {
+				var answer = question.answers[answerId];
+				console.log(answer); %>
+					<input type="radio" name="<%= question.id %>" value="<%= answer.id %>"> <%= answer.text %>
+				<% } %>
+				<button data-question-id="<%= question.id %>" onclick="confirmAnswer(event)">Confirmer</button>
+			</form>
 		</div>
 <% } %>
 	<input name="name" value="<%= student.name %>" type="hidden">
