@@ -1,6 +1,7 @@
-function generatechart(receive_data, class_name, button)
+function generateChart(receive_data, class_name, button)
 {
 	var onclick = false;
+
 	d3.select(button).on('click',function()
 	{
 		if(onclick == false)
@@ -14,7 +15,7 @@ function generatechart(receive_data, class_name, button)
 			d3.select(class_name).selectAll('svg').remove();
 			generate_bar(receive_data,class_name)
 			onclick = false;
-		}	
+		}
 	});
 
 	function mouseover(d,i)

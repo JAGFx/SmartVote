@@ -32,13 +32,14 @@ function receiveStudentsData(studentsData) {
 function updateAnswerStatus(answerData) {
     $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
     dataQuestion[answerData.answerId].nb++;
-    generatechart(dataQuestion,".chart",".button-change");
+    generateChart(dataQuestion,".chart",".button-change");
 }
 
 function sendQuestion(evt) {
     var questionId = $(evt.currentTarget).data('questionId');
     var question = questions[questionId];
     initDataQuestion(question);
+    generateChart(dataQuestion,".chart",".button-change");
     socket.emit("displayQuestionById", questionId);
 }
 
