@@ -13,6 +13,7 @@ var io = socket(server);
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var managerSocket, projectorSocket;
 var students = {};
 
 // view engine setup
@@ -51,10 +52,12 @@ app.use(function (err, req, res, next) {
 });
 
 // socket parts
-io.sockets.on('connection', newConnection);
+io.sockets.on('connection', connection);
 
-function newConnection(socket) {
-    socket.on('newStudentConnection', addStudent);
+function connection(socket) {
+    socket.on('studentConnection', addStudent);
+    socket.on('managerConnection', newManager);
+    socket.on('projectorConnection', newProjector);
     socket.on('kickUser', redirect);
     socket.on('answer', sendAnswer);
     socket.on('displayQuestionById', sendQuestionId);
@@ -63,6 +66,10 @@ function newConnection(socket) {
         students[socket.id] = student;
         socket.broadcast.emit('students', students);
     }
+
+    function newManager() { managerSocket = socket; }
+
+    function newProjector() { projectorSocket = socket; }
 
     function redirect(socketId) {
         var client = io.sockets.connected[socketId];

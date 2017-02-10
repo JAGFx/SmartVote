@@ -1,5 +1,4 @@
-var socket;
-socket = io.connect('http://localhost:8000');
+var socket = io.connect('http://localhost:8000');
 
 var student = {
   name:      $("input[name='name']").val(),
@@ -21,12 +20,16 @@ function switchSelectedValue(element) {
     }
 }
 
-socket.emit('newStudentConnection', student);
+socket.emit('studentConnection', student);
 
-socket.on('redirect', function(destination) {
-    window.location.href = destination;
-});
+socket.on('redirect', redirection);
 socket.on('receiveQuestionId', displayQuestionById);
+
+function redirection (destination) { window.location.href = destination };
+
+function displayQuestionById(questionId) {
+    $('div#'+questionId).css('display', "block");
+}
 
 $('form').submit(function(e) {
     e.preventDefault();
@@ -37,15 +40,3 @@ $('form').submit(function(e) {
         student: student
     });
 });
-
-function displayQuestionById(questionId) {
-    $('div#'+questionId).css('display', "block");
-}
-
-// $('form').submit(function(e) {
-//     e.preventDefault();
-//     var formData = new FormData(this);
-//     var answerId = formData.get('answers');
-//
-//     socket.emit('answerByQuestionId', {answerId: answerId});
-// });

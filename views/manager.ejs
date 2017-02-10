@@ -52,8 +52,7 @@
                       <td>
                         <ul>
                       <% for (answerId in question.answers) {
-                          var answer = question.answers[answerId];
-                          console.log(answer); %>
+                          var answer = question.answers[answerId]; %>
                           <li>
                             #<%= answer.id %> <%= answer.text %>
                             <% if (answer.value) { %>

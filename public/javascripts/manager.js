@@ -1,6 +1,6 @@
-var socket;
-socket = io.connect('http://localhost:8000');
-// var questionsService = require('../services/questions.service');
+var socket = io.connect('http://localhost:8000');
+
+socket.emit('managerConnection');
 
 var dataQuestion = [];
 
@@ -32,14 +32,14 @@ function receiveStudentsData(studentsData) {
 function updateAnswerStatus(answerData) {
     $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
     dataQuestion[answerData.answerId].nb++;
-    generateChart(dataQuestion,".chart",".button-change");
+    updateChart(dataQuestion);
 }
 
 function sendQuestion(evt) {
     var questionId = $(evt.currentTarget).data('questionId');
     var question = questions[questionId];
     initDataQuestion(question);
-    generateChart(dataQuestion,".chart",".button-change");
+    updateChart(dataQuestion);
     socket.emit("displayQuestionById", questionId);
 }
 
