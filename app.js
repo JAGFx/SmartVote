@@ -61,6 +61,7 @@ function connection(socket) {
     socket.on('kickUser', redirect);
     socket.on('answer', sendAnswer);
     socket.on('displayQuestionById', sendQuestionId);
+    socket.on('sendChart', sendChart);
 
     function addStudent(student) {
         students[socket.id] = student;
@@ -83,7 +84,11 @@ function connection(socket) {
     }
 
     function sendQuestionId(questionId) {
-        socket.broadcast.emit("receiveQuestionId", questionId);
+        socket.broadcast.emit('receiveQuestionId', questionId);
+    }
+
+    function sendChart(dataQuestion) {
+        projectorSocket.emit('receiveDataQuestion', dataQuestion);
     }
 
     function getSocketIdFromData(data) {

@@ -49,6 +49,7 @@ function initDataQuestion(question) {
         var answer = question.answers[i];
         dataQuestion.push({"label": answer.text, "nb": 0});
     }
+    console.log(dataQuestion);
 }
 
 function openTab(evt, tabName) {
@@ -70,4 +71,8 @@ function openTab(evt, tabName) {
     // Show the current tab, and add an "active" class to the link that opened the tab
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+}
+
+function sendCharts() {
+    socket.emit('sendChart', dataQuestion);
 }
