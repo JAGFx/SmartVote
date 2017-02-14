@@ -4,18 +4,33 @@
 
 var mysql = require( '../services/mysql.service' );
 
-/*exports.add = function ( question ) {
- var entity = prepareEntity( question );
- 
- for ( var key in entity.answers ) {
- 
- }
- 
- mysql.insertEntity( table, entity.mainObj, function ( err, res ) {
- console.log( err, res );
- } );
- };
- 
+exports.add = function ( question, callback ) {
+	
+	var answers = question.answers;
+	delete question.answers;
+	question.tags = JSON.stringify( question.tags );
+	
+	mysql.insertEntity( 'question', question, function ( err, res ) {
+		console.log( err, res );
+		
+		if ( !err ) {
+			for ( var i in answers ) {
+				var answer = answers[ i ];
+				
+				var questionAnswer = {
+					question_id: res.insertId,
+					answer_id:   answer.id,
+					value:       answer.value
+				};
+				
+				mysql.insertEntity( 'question_answer', questionAnswer, function ( err, res ) {
+					console.log( err, res );
+				} );
+			}
+		}
+	} );
+};
+/*
  exports.remove = function ( question ) {
  if ( typeof question.id === "undefined" )
  throw "Invalid Student entity. ID dosen't exist";
