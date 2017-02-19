@@ -1,4 +1,5 @@
 var socket = io.connect('http://localhost:8000');
+// var QuestionService = require( '../services/question.service.js' );
 
 socket.emit('managerConnection');
 
@@ -76,3 +77,37 @@ function openTab(evt, tabName) {
 function sendCharts() {
     socket.emit('sendChart', dataQuestion);
 }
+
+function addQuestion() {
+    var formQuestion = $('#formQuestion');
+    if (formQuestion.css('display') == 'none') {
+        $('#formQuestion').css('display', 'block');
+    } else {
+        $('#formQuestion').css('display', 'none');
+    }
+}
+
+function confirmAddQuestion() {
+    var formQuestion = $('#formQuestion');
+}
+
+$('form').submit(function(event) {
+    event.preventDefault();
+    var formdata = new FormData($(this));
+    var question, answer;
+    answer.value = false;
+
+    question.text = formdata.get(question);
+
+    answer.text = formdata.get(response1);
+    question.answers.push(answer);
+    answer.text = formdata.get(response2);
+    question.answers.push(answer);
+    answer.text = formdata.get(response3);
+    question.answers.push(answer);
+    answer.text = formdata.get(response4);
+    question.answers.push(answer);
+    question.answers[formdata.response].value = true;
+
+    question.tags.push(formdata.get(tags)) = formdata.get(tags);
+});

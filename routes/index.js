@@ -8,10 +8,10 @@ router
 		QuestionService.findAllByTags( [ 'SF3' ], function ( questions ) {
 			res.render( 'index.ejs', { title: questions } );
 		} );
-		
+
 		res.redirect( '/users/login' );
 	} )
-	
+
 	.get( '/debug', function ( req, res ) {
 		var question = {
 			text:    'Question test',
@@ -29,7 +29,7 @@ router
 				}
 			]
 		};
-		
+
 		QuestionService.add( question );
 	} )
 

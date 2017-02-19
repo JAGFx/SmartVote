@@ -3,6 +3,32 @@
     var questions = <%-JSON.stringify(questions)%>
 </script>
 
+
+<button onclick="addQuestion(event)">Ajouter une question</button>
+<div id="formQuestion">
+    <form>
+        <label>Question : </label>
+        <input type="text" name="question" >
+        <label>Réponses : </label>
+        <input type="text" name="response1" placeholder="réponse 1">
+        <input type="text" name="response2" placeholder="réponse 2">
+        <input type="text" name="response3" placeholder="réponse 3">
+        <input type="text" name="response4" placeholder="réponse 4">
+        <input type="radio" name="response" value="0" > réponse 1
+        <input type="radio" name="response" value="1"> réponse 2
+        <input type="radio" name="response" value="2"> réponse 3
+        <input type="radio" name="response" value="3"> réponse 4
+        <label>tag : </label>
+        <select name="tag" multiple>
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="opel">Opel</option>
+            <option value="audi">Audi</option>
+        </select>
+        <button type="submit"></button>
+    </form>
+</div>
+
 <ul class="tab">
     <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
     <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
