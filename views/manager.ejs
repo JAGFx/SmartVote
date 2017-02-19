@@ -2,84 +2,86 @@
 <script type='text/javascript'>
     var questions = <%-JSON.stringify(questions)%>
 </script>
-      <ul class="tab">
-        <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
-        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
-      </ul>
-          <div id="students" class="tabcontent" style="display: block;">
-            <h1>Page Manager</h1>
-            <div style="overflow-x:auto;">
-              <table id="table-students">
-                <legend>Etudiants connectés</legend>
-                <thead>
-                  <tr>
-                    <th>Nom</th>
-                    <th>Prénom</tr>
-                    <th>Salon</th>
-                    <th>Statut</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-            </div>
-            <div class="infos">
-                <h4>Informations : </h4>
-            </div>
-            <div class="container maintcontent text-midle">
-              <button class="button-change">Changer de graph</button>
-              <button onclick="sendCharts()">Afficher</button>
-            </div>
-            <div class="row chart">
-            </div>
-          </div>
-          <div id="questions" class="tabcontent">
-            <div style="overflow-x:auto;">
-              <table id="table-questions">
-                <legend>Liste des questions</legend>
-                <thead>
-                  <tr>
-                    <th>Question</th>
-                    <th>Réponses</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <% for (questionId in questions) {
-                    var question = questions[questionId] %>
-                    <tr>
-                      <td>#<%= question.id %> <%= question.text %></td>
-                      <td>
-                        <ul>
-                      <% for (answerId in question.answers) {
-                          var answer = question.answers[answerId]; %>
-                          <li>
-                            #<%= answer.id %> <%= answer.text %>
-                            <% if (answer.value) { %>
-                              <span class="badge success">Vraie
-                            <% } else { %>
-                              <span class="badge failed">Faux
-                            <% } %>
-                          </li>
-                      <% } %>
-                        </ul>
-                      </td>
-                      <td>
-                        <button data-question-id="<%= question.id %>"
-                            data-answer-id="<%= answer.id %>"
-                            onclick="sendQuestion(event)">Envoyer
-                        </button>
-                      </td>
-                    </tr>
-                <% } %>
-                </tbody>
-              </table>
-            </div>
-        </div>
 
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/manager.js"></script>
-        <link rel='stylesheet' href='/manager.css' />
-    </body>
+<ul class="tab">
+    <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
+    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
+</ul>
+
+<!-- Students List -->
+<div id="students" class="tabcontent" style="display: block;">
+    <h1>Page Manager</h1>
+    <div style="overflow-x:auto;">
+        <table id="table-students">
+        <legend>Etudiants connectés</legend>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</tr>
+                <th>Salon</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+    </div>
+    <div class="infos">
+        <h4>Informations : </h4>
+    </div>
+    <div class="container maintcontent text-midle">
+        <button class="button-change-graph">Changer de graph</button>
+        <button onclick="sendCharts()">Afficher</button>
+    </div>
+    <div class="row chart"></div>
+</div>
+
+<!-- Questions List -->
+<div id="questions" class="tabcontent">
+    <table id="table-questions">
+    <legend>Liste des questions</legend>
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Réponses</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% for (questionId in questions) {
+        var question = questions[questionId] %>
+        <tr>
+            <td>#<%= question.id %> <%= question.text %></td>
+            <td>
+                <ul>
+                <% for (answerId in question.answers) {
+                    var answer = question.answers[answerId]; %>
+                    <li>
+                    <% if (answer.value) { %>
+                        <span class="badge success">Vraie
+                    <% } else { %>
+                        <span class="badge failed">Faux
+                    <% } %>
+                    </li>
+                <% } %>
+                </ul>
+            </td>
+            <td>
+            <button data-question-id="<%= question.id %>"
+                data-answer-id="<%= answer.id %>"
+                onclick="sendQuestion(event)">Envoyer
+            </button>
+            </td>
+        </tr>
+    <% } %>
+    </tbody>
+    </table>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/manager.js"></script>
+<link rel='stylesheet' href='/manager.css' />
+
+</body>
 </html>
