@@ -78,27 +78,28 @@
     <% for (questionId in questions) {
         var question = questions[questionId] %>
         <tr>
-            <td>#<%= question.id %> <%= question.text %></td>
-            <td>
-                <ul>
-                <% for (answerId in question.answers) {
-                    var answer = question.answers[answerId]; %>
-                    <li>
-                    <% if (answer.value) { %>
-                        <span class="badge success">Vraie
-                    <% } else { %>
-                        <span class="badge failed">Faux
-                    <% } %>
-                    </li>
+          <td>#<%= question.id %> <%= question.text %></td>
+          <td>
+            <ul>
+          <% for (answerId in question.answers) {
+              var answer = question.answers[answerId]; %>
+              <li>
+                #<%= answer.id %> <%= answer.text %>
+                <% if (answer.value) { %>
+                  <span class="badge success">Vraie
+                <% } else { %>
+                  <span class="badge failed">Faux
                 <% } %>
-                </ul>
-            </td>
-            <td>
+              </li>
+          <% } %>
+            </ul>
+          </td>
+          <td>
             <button data-question-id="<%= question.id %>"
                 data-answer-id="<%= answer.id %>"
                 onclick="sendQuestion(event)">Envoyer
             </button>
-            </td>
+          </td>
         </tr>
     <% } %>
     </tbody>
