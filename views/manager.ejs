@@ -1,6 +1,7 @@
 <% include layout/header %>
 <script type='text/javascript'>
     var questions = <%-JSON.stringify(questions)%>
+    console.log(questions[0].answers);
 </script>
 
 
@@ -84,12 +85,13 @@
           <% for (answerId in question.answers) {
               var answer = question.answers[answerId]; %>
               <li>
-                #<%= answer.id %> <%= answer.text %>
-                <% if (answer.value) { %>
+                #<%= answer.id %>
+                <% if (answer.value == 1) { %>
                   <span class="badge success">Vraie
                 <% } else { %>
                   <span class="badge failed">Faux
                 <% } %>
+                 <%= answer.text %>
               </li>
           <% } %>
             </ul>
