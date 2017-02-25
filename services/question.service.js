@@ -5,6 +5,8 @@
 var mysql = require( '../services/mysql.service' );
 
 exports.add = function ( question, callback ) {
+	if ( typeof callback !== "function" )
+		throw "The callback isn't a valid function.";
 	
 	var answers = question.answers;
 	delete question.answers;
@@ -23,11 +25,19 @@ exports.add = function ( question, callback ) {
 					value:       answer.value
 				};
 				
+				var ok = true;
 				mysql.insertEntity( 'question_answer', questionAnswer, function ( err, res ) {
 					console.log( err, res );
+					
+					if ( err )
+						ok = false;
 				} );
 			}
-		}
+			
+		} else
+			ok = false;
+		
+		callback( ok, res );
 	} );
 };
 /*
@@ -79,6 +89,37 @@ exports.findAll = function ( callback ) {
 		
 		
 		callback( prepareEntity( res ) );
+	} );
+};
+
+exports.findAllTags = function ( callback ) {
+	if ( typeof callback !== "function" )
+		throw "The callback isn't a valid function.";
+	
+	var q = 'SELECT q.tags FROM question q';
+	
+	mysql.find( q, [], function ( err, res ) {
+		if ( err )
+			throw err;
+		
+		var brutListTags = [];
+		var finalListTags = [];
+		
+		// Build pre-tag array
+		for ( var id in res ) {
+			var row = res[ id ];
+			
+			if( JSON.parse( row.tags ) !== null )
+				brutListTags = brutListTags.concat( JSON.parse( row.tags ) );
+		}
+		
+		// Delete duplicate tag
+		for ( var i = 0; i < brutListTags.length; ++i ) {
+			if ( finalListTags.indexOf( brutListTags[ i ] ) == -1 )
+				finalListTags.push( brutListTags[ i ] );
+		}
+		
+		callback( finalListTags );
 	} );
 };
 

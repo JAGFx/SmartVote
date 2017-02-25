@@ -1,16 +1,71 @@
 <% include layout/header %>
 <script type='text/javascript'>
-    var questions = <%-JSON.stringify(questions)%>
+    var questions = <%-JSON.stringify(questions)%>;
 </script>
 
 
 <button onclick="addQuestion(event)">Ajouter une question</button>
 <div id="formQuestion">
-    <form>
-        <label>Question : </label>
-        <input type="text" name="question" >
-        <label>Réponses : </label>
-        <input type="text" name="response1" placeholder="réponse 1">
+    <form id="addQuestionForm" method="post">
+	    <fieldset >
+		    <legend >Question</legend >
+		    <label for="question">Question : </label>
+		    <input type="text" name="question" id="question">
+	    </fieldset >
+	    <fieldset >
+		    <legend>Réponses</legend >
+		    <input type="hidden" name="indexs" value="[1,2,3]" >
+		    <div data-index-answer="1">
+			    <label for="response1" >Réponse 1</label >
+			    <select  name="response1" id="response1" >
+					<option value="null">Désactivé</option>
+				    <% for (var k in answers ) {
+					    var answer = answers[k]; %>
+
+					    <option value="<%= answer.id %>"><%= answer.text %></option>
+				    <% } %>
+			    </select>
+
+			    <input type="checkbox" name="reponse1Valide" id="reponse1Valide" class="inline-block">
+			    <label for="reponse1Valide" >Valide</label>
+		    </div>
+		    <div data-index-answer="2">
+			    <label for="response2" >Réponse 2</label >
+			    <select  name="response2" id="response2" >
+					<option value="null">Désactivé</option>
+				    <% for (var k in answers ) {
+					    var answer = answers[k]; %>
+
+				    <option value="<%= answer.id %>"><%= answer.text %></option>
+				    <% } %>
+			    </select>
+
+			    <input type="checkbox" name="reponse2Valide" id="reponse2Valide" class="inline-block">
+			    <label for="reponse2Valide" >Valide</label>
+		    </div>
+		    <div data-index-answer="3">
+			    <label for="response3" >Réponse 3</label >
+			    <select  name="response3" id="response3" >
+					<option value="null">Désactivé</option>
+				    <% for (var k in answers ) {
+					    var answer = answers[k]; %>
+
+				    <option value="<%= answer.id %>"><%= answer.text %></option>
+				    <% } %>
+			    </select>
+
+			    <input type="checkbox" name="reponse3Valide" id="reponse3Valide" class="inline-block">
+			    <label for="reponse3Valide" >Valide</label>
+		    </div>
+	    </fieldset >
+	    <fieldset >
+		    <legend >Tags</legend >
+			<p><b>Tags existant:</b> <%= tags.toString() %></p>
+		    <label for="tags">Tags</label>
+			<input type="text" name="tags" id="tags" >
+	    </fieldset >
+
+        <!--<input type="text" name="response1" placeholder="réponse 1">
         <input type="text" name="response2" placeholder="réponse 2">
         <input type="text" name="response3" placeholder="réponse 3">
         <input type="text" name="response4" placeholder="réponse 4">
@@ -24,8 +79,9 @@
             <option value="saab">Saab</option>
             <option value="opel">Opel</option>
             <option value="audi">Audi</option>
-        </select>
-        <button type="submit"></button>
+        </select>-->
+        <button type="submit">Ajouter</button>
+
     </form>
 </div>
 
@@ -86,9 +142,9 @@
               <li>
                 #<%= answer.id %> <%= answer.text %>
                 <% if (answer.value) { %>
-                  <span class="badge success">Vraie
+                  <span class="badge success">Vraie</span>
                 <% } else { %>
-                  <span class="badge failed">Faux
+                  <span class="badge failed">Faux</span>
                 <% } %>
               </li>
           <% } %>

@@ -54,3 +54,5 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 #formQuestion {
     display: none;
 }
+
+.inline-block { display: inline-block !important; }

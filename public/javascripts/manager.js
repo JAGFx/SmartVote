@@ -91,7 +91,7 @@ function confirmAddQuestion() {
     var formQuestion = $('#formQuestion');
 }
 
-$('form').submit(function(event) {
+/*$('form').submit(function(event) {
     event.preventDefault();
     var formdata = new FormData($(this));
     var question, answer;
@@ -110,4 +110,47 @@ $('form').submit(function(event) {
     question.answers[formdata.response].value = true;
 
     question.tags.push(formdata.get(tags)) = formdata.get(tags);
-});
+});*/
+
+// TODO: Dynamic add question in form
+// TODO: Dynamic add other answer
+$( 'form#addQuestionForm' ).submit( function ( e ) {
+	e.preventDefault();
+	
+	var $this    = $( this );
+	var formdata = new FormData( $this[ 0 ] );
+	var indexs   = JSON.parse( formdata.get( 'indexs' ) );
+	var question = formdata.get( 'question' );
+	var tags     = formdata.get( 'tags' );
+	var data     = {
+		text:    question,
+		tags:    tags.split( ',' ),
+		answers: []
+	};
+	
+	// Insert anwers
+	for ( var i in indexs ) {
+		var index  = indexs[ i ];
+		var answer = parseInt( formdata.get( 'response' + index ) );
+		var valid  = formdata.get( 'reponse' + index + 'Valide' ) === 'on';
+		
+		if ( !isNaN( answer ) )
+			data.answers.push( {
+				id:    answer,
+				value: valid
+			} );
+		
+		console.log( 'Réponse ' + index, answer, valid );
+	}
+	
+	console.log( 'END DATA', data );
+	socket.emit( 'addQuestion', data );
+	socket.on( 'feedbackAddQuestion', function ( okStatus ) {
+		if ( okStatus ) {
+			alert( 'Question ajouté' );
+			$this[ 0 ].reset();
+			
+		} else
+			alert( 'Impossible d\'ajouter la question' );
+	} );
+} );

@@ -1,6 +1,7 @@
 var express   = require( 'express' );
 var router    = express.Router();
 var QuestionService = require( '../services/question.service.js' );
+var AnswerService = require( '../services/answer.service.js' );
 
 /* GET home page. */
 router
@@ -32,12 +33,20 @@ router
 
 		QuestionService.add( question );
 	} )
-
-	.get('/manager.html', function ( req, res ) {
-		QuestionService.findAll(function(questions) {
-			res.render('manager.ejs', { questions: questions } );
-		});
-	})
+	
+	.get( '/manager.html', function ( req, res ) {
+		QuestionService.findAll( function ( questions ) {
+			AnswerService.findAll( function ( answers ) {
+				QuestionService.findAllTags( function ( tags ) {
+					res.render( 'manager.ejs', {
+						questions: questions,
+						answers:   answers,
+						tags:      tags
+					} );
+				} );
+			} );
+		} );
+	} )
 
 	.post( '/question', function ( req, res, next ) {
 		var student = {

@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socket = require('socket.io');
 
+var QuestionService = require( './services/question.service' );
+
 var app = express();
 var server = app.listen(8000);
 var io = socket(server);
@@ -62,6 +64,7 @@ function connection(socket) {
     socket.on('answer', sendAnswer);
     socket.on('displayQuestionById', sendQuestionId);
     socket.on('sendChart', sendChart);
+	socket.on( 'addQuestion', addQuestionOnDB );
 
     function addStudent(student) {
         students[socket.id] = student;
@@ -104,6 +107,18 @@ function connection(socket) {
 
         return false;
     }
+	
+	/**
+     * Fonction d'ajout d'une nouvelle question en BDD à la réception d'un event
+	 * @param question Question à ajouter
+	 */
+	function addQuestionOnDB( question ) {
+		console.log( 'Inside' );
+		
+		QuestionService.add( question, function ( okStatus ) {
+			socket.emit( 'feedbackAddQuestion', okStatus );
+		} );
+	}
 }
 
 module.exports = app;
