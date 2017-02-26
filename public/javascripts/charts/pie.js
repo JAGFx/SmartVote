@@ -107,11 +107,9 @@ function generate_pie(receive_data, class_name)   //
   }
   // ------------------------------------------------------------------------------------------------------------------
   // Event listener
-  function mouseover(d,i)
-  {
-  d3.selectAll('.text_append').remove();
-  d3.select(".infos").append('text').attr('class','text_append').text(" / Taux de réponse "+i+":  "+d.data+"%");
-  console.log(d)
+  function mouseover(d,i) {
+      d3.selectAll('.text_append').remove();
+      d3.select(".infos").append('text').attr('class','text_append').text(" / Taux de réponse "+i+":  "+d.data+"%");
   }
 }  // END OF FUNCTION PIE
 // ------------------------------------------------------------------------------------------------------------------

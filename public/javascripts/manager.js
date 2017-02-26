@@ -50,7 +50,6 @@ function initDataQuestion(question) {
         var answer = question.answers[i];
         dataQuestion.push({"label": answer.text, "nb": 0});
     }
-    console.log(dataQuestion);
 }
 
 function openTab(evt, tabName) {
@@ -134,16 +133,11 @@ $( 'form#addQuestionForm' ).submit( function ( e ) {
 		var answer = parseInt( formdata.get( 'response' + index ) );
 		var valid  = formdata.get( 'reponse' + index + 'Valide' ) === 'on';
 
-		if ( !isNaN( answer ) )
-			data.answers.push( {
-				id:    answer,
-				value: valid
-			} );
-
-		console.log( 'Réponse ' + index, answer, valid );
+		if (!isNaN( answer )) {
+            data.answers.push( {id: answer, value: valid} );
+        }
 	}
 
-	console.log( 'END DATA', data );
 	socket.emit( 'addQuestion', data );
 	socket.on( 'feedbackAddQuestion', function ( okStatus ) {
 		if ( okStatus ) {

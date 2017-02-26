@@ -1,0 +1,38 @@
+.answer {
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    font-size: 1.3em;
+    color: white;
+}
+
+.answer1 {
+    background-color: #64c1dc
+}
+
+.answer2 {
+    background-color: #f5b849
+}
+
+.answer3 {
+    background-color: #58b359
+}
+
+.answer4 {
+    background-color: #da5353
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.question {
+    text-align: center;
+    width: auto;
+}
+
+h2 {
+    font-size: 1.6em;
+}

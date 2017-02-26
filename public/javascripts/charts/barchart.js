@@ -4,24 +4,24 @@ function generate_bar(receive_data, class_name)
     var margin = {top: 20, right: 20, bottom: 30, left: 40},
         width = 800 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
-   // ------------------------------------------------------------------------------------------------------------------     
+   // ------------------------------------------------------------------------------------------------------------------
     // set the ranges
     var x = d3.scaleBand()
               .range([0, width])
               .padding(0.1);
     var y = d3.scaleLinear()
               .range([height, 0]);
-              
+
     var svg = d3.select(class_name).append("svg")
                   .attr("width", width + margin.left + margin.right)
                   .attr("height", height + margin.top + margin.bottom)
                   .append("g")
-                  .attr("transform", 
+                  .attr("transform",
                       "translate(" + margin.left + "," + margin.top + ")");
-      
-    // ------------------------------------------------------------------------------------------------------------------  
+
+    // ------------------------------------------------------------------------------------------------------------------
     //
-    var color = d3.scaleOrdinal(d3.schemeCategory10);                     // Array de couleur. 
+    var color = d3.scaleOrdinal(d3.schemeCategory10);                     // Array de couleur.
 
     var data = receive_data;                                              // init data.
 
@@ -55,11 +55,9 @@ function generate_bar(receive_data, class_name)
 
     // ------------------------------------------------------------------------------------------------------------------
     // ------------------------------------------------------------------------------------------------------------------
-    // Event 
-    function mouseover(d,i)
-    {
-      d3.selectAll('.text_append').remove();
-      d3.select(".infos").append('text').attr('class','text_append').text(" / Taux de "+d.label+" :   "+d.nb+"%");
-      console.log(d)
+    // Event
+    function mouseover(d,i) {
+        d3.selectAll('.text_append').remove();
+        d3.select(".infos").append('text').attr('class','text_append').text(" / Taux de "+d.label+" :   "+d.nb+"%");
     }
 }
