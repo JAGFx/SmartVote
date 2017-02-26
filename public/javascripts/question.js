@@ -1,6 +1,7 @@
 var socket = io.connect('http://localhost:8000');
 
 var previousQuestionId = undefined;
+var answerIdSelected = undefined;
 
 var student = {
   name:      $("input[name='name']").val(),
@@ -26,6 +27,8 @@ function switchSelectedValue(element) {
     }
 }
 
+function selectAnswer(answerId) { answerIdSelected = answerId; }
+
 socket.emit('studentConnection', student);
 
 socket.on('redirect', redirection);
@@ -43,10 +46,9 @@ function displayQuestionById(questionId) {
 
 $('form').submit(function(e) {
     e.preventDefault();
-    var buttonChecked = $("input[type=radio]:checked");
 
     socket.emit('answer', {
-        answerId : buttonChecked.val(),
+        answerId : answerIdSelected,
         student: student
     });
 });

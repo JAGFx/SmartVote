@@ -1,60 +1,84 @@
+/*
+Info	#64c1dc
+Success	#58b359
+Warning	#f5b849
+Danger	#da5353
+*/
+
 /* Global Rules */
 /* -----------------------------*/
-body
-{
-
+body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a
-{
+a {
   color: #00B7FF;
 }
-footer hr
-{
+footer hr {
 	width : 100%;
 }
 
-header
-{
+header {
 	height : 50px;
 }
 
 /* -----------------------------*/
 /* Specific Rules */
-.navigation
-{
+.navigation {
     position : fixed;
     top : 0;
     width : 100%;
     z-index: 100;
     left:0;
 }
-.navigation  ul
-{
+
+.navigation  ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: black;
 }
+
 .navigation  li {float: left;}
 
-.navigation  li a, .dropbtn
-{
+.navigation  li a, .dropbtn {
     display: inline-block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
+
 .navigation  li a:hover, .dropdown:hover .dropbtn {background-color: rgba(200,0,0,0.5);}
-.navigation  li.dropdown
-{
+
+.navigation  li.dropdown{
     display: inline-block;
 }
-.maintcontent
-{
+
+.maintcontent {
     margin-top: 100px;
     padding: 1%;
 }
+
+/*Badges*/
+
+.badge {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    padding: 2px;
+}
+
+.badge.success {
+    background-color: #58b359;
+}
+
+.badge.danger {
+    background-color: #da5353;
+}
+
+.badge.info {
+    background-color: #64c1dc;
+}
+/*Badges*/

@@ -125,12 +125,13 @@
           <% for (answerId in question.answers) {
               var answer = question.answers[answerId]; %>
               <li>
-                #<%= answer.id %> <%= answer.text %>
-                <% if (answer.value) { %>
+                #<%= answer.id %>
+                <% if (answer.value == 1) { %>
                   <span class="badge success">Vraie</span>
                 <% } else { %>
-                  <span class="badge failed">Faux</span>
+                  <span class="badge danger">Faux</span>
                 <% } %>
+                <%= answer.text %>
               </li>
           <% } %>
             </ul>
