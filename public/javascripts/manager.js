@@ -1,9 +1,11 @@
 var socket = io.connect('http://localhost:8000');
 // var QuestionService = require( '../services/question.service.js' );
+var dataQuestion  = [];
+var statusWaiting = 'En attente de réponse';
+var statusOK      = 'A répondu';
 
 socket.emit('managerConnection');
 
-var dataQuestion = [];
 
 socket.on('students', receiveStudentsData);
 socket.on('studentAnswer', updateAnswerStatus);
@@ -17,7 +19,7 @@ function receiveStudentsData(studentsData) {
     newLine.append($('<td>').html(student.name))
       .append($('<td>').html(student.nickname))
       .append($('<td>').html(student.salon))
-      .append($('<td>').attr('data-socketId', socketId).addClass('badge info').html('En attente de réponse'))
+      .append($('<td>').attr('data-socketId', socketId).addClass('student-status badge info').html(statusWaiting))
       .append($('<td>')
         .append($('<button>').attr('id', socketId).html('Kick')
         .click(function() {
@@ -31,7 +33,10 @@ function receiveStudentsData(studentsData) {
 }
 
 function updateAnswerStatus(answerData) {
-    $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu").removeClass('info').addClass('success');
+    $('td[data-socketId="'+answerData.socketId+'"]')
+        .removeClass('info')
+        .addClass('success')
+        .html(statusOK);
     dataQuestion[answerData.answerId].nb++;
     updateChart(dataQuestion);
 }
@@ -41,7 +46,12 @@ function sendQuestion(evt) {
     var question = questions[questionId];
     initDataQuestion(question);
     updateChart(dataQuestion);
+    initStudentsStatus();
     socket.emit("displayQuestionById", questionId);
+}
+
+function initStudentsStatus() {
+    $('.student-status').removeClass('success').addClass('info').html(statusWaiting);
 }
 
 function initDataQuestion(question) {
