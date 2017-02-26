@@ -77,4 +77,8 @@ header {
 .badge.danger {
     background-color: #da5353;
 }
+
+.badge.info {
+    background-color: #64c1dc;
+}
 /*Badges*/

@@ -17,7 +17,7 @@ function receiveStudentsData(studentsData) {
     newLine.append($('<td>').html(student.name))
       .append($('<td>').html(student.nickname))
       .append($('<td>').html(student.salon))
-      .append($('<td>').attr('data-socketId', socketId).html('En attente de réponse'))
+      .append($('<td>').attr('data-socketId', socketId).addClass('badge info').html('En attente de réponse'))
       .append($('<td>')
         .append($('<button>').attr('id', socketId).html('Kick')
         .click(function() {
@@ -31,7 +31,7 @@ function receiveStudentsData(studentsData) {
 }
 
 function updateAnswerStatus(answerData) {
-    $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu");
+    $('td[data-socketId="'+answerData.socketId+'"]').html("A répondu").removeClass('info').addClass('success');
     dataQuestion[answerData.answerId].nb++;
     updateChart(dataQuestion);
 }
@@ -116,7 +116,7 @@ function confirmAddQuestion() {
 // TODO: Dynamic add other answer
 $( 'form#addQuestionForm' ).submit( function ( e ) {
 	e.preventDefault();
-	
+
 	var $this    = $( this );
 	var formdata = new FormData( $this[ 0 ] );
 	var indexs   = JSON.parse( formdata.get( 'indexs' ) );
@@ -127,29 +127,29 @@ $( 'form#addQuestionForm' ).submit( function ( e ) {
 		tags:    tags.split( ',' ),
 		answers: []
 	};
-	
+
 	// Insert anwers
 	for ( var i in indexs ) {
 		var index  = indexs[ i ];
 		var answer = parseInt( formdata.get( 'response' + index ) );
 		var valid  = formdata.get( 'reponse' + index + 'Valide' ) === 'on';
-		
+
 		if ( !isNaN( answer ) )
 			data.answers.push( {
 				id:    answer,
 				value: valid
 			} );
-		
+
 		console.log( 'Réponse ' + index, answer, valid );
 	}
-	
+
 	console.log( 'END DATA', data );
 	socket.emit( 'addQuestion', data );
 	socket.on( 'feedbackAddQuestion', function ( okStatus ) {
 		if ( okStatus ) {
 			alert( 'Question ajouté' );
 			$this[ 0 ].reset();
-			
+
 		} else
 			alert( 'Impossible d\'ajouter la question' );
 	} );
