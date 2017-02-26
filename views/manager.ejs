@@ -6,64 +6,49 @@
 
 <button onclick="addQuestion(event)">Ajouter une question</button>
 <div id="formQuestion">
+	
+	<!-- Formulaire d'ajout de question -->
     <form id="addQuestionForm" method="post">
-	    <fieldset >
+		
+		<!-- Espace Question -->
+	    <fieldset data-qf="question" >
 		    <legend >Question</legend >
-		    <label for="question">Question : </label>
-		    <input type="text" name="question" id="question">
+		    <label for="question">Question :</label>
+		    <input type="text" name="question" id="question" placeholder="De quel couleur est le cheval blanc d'Henri IV ?" required>
 	    </fieldset >
-	    <fieldset >
-		    <legend>Réponses</legend >
-		    <input type="hidden" name="indexs" value="[1,2,3]" >
-		    <div data-index-answer="1">
-			    <label for="response1" >Réponse 1</label >
-			    <select  name="response1" id="response1" >
-					<option value="null">Désactivé</option>
-				    <% for (var k in answers ) {
-					    var answer = answers[k]; %>
-
-					    <option value="<%= answer.id %>"><%= answer.text %></option>
-				    <% } %>
-			    </select>
-
-			    <input type="checkbox" name="reponse1Valide" id="reponse1Valide" class="inline-block">
-			    <label for="reponse1Valide" >Valide</label>
-		    </div>
-		    <div data-index-answer="2">
-			    <label for="response2" >Réponse 2</label >
-			    <select  name="response2" id="response2" >
-					<option value="null">Désactivé</option>
-				    <% for (var k in answers ) {
-					    var answer = answers[k]; %>
-
-				    <option value="<%= answer.id %>"><%= answer.text %></option>
-				    <% } %>
-			    </select>
-
-			    <input type="checkbox" name="reponse2Valide" id="reponse2Valide" class="inline-block">
-			    <label for="reponse2Valide" >Valide</label>
-		    </div>
-		    <div data-index-answer="3">
-			    <label for="response3" >Réponse 3</label >
-			    <select  name="response3" id="response3" >
-					<option value="null">Désactivé</option>
-				    <% for (var k in answers ) {
-					    var answer = answers[k]; %>
-
-				    <option value="<%= answer.id %>"><%= answer.text %></option>
-				    <% } %>
-			    </select>
-
-			    <input type="checkbox" name="reponse3Valide" id="reponse3Valide" class="inline-block">
-			    <label for="reponse3Valide" >Valide</label>
-		    </div>
+		
+		<!-- Espace réponse -->
+	    <fieldset data-qf="answers" >
+			<legend>Réponses</legend
 	    </fieldset >
-	    <fieldset >
+		
+		<!-- Espace tags -->
+	    <fieldset data-qf="tags">
 		    <legend >Tags</legend >
 			<p><b>Tags existant:</b> <%= tags.toString() %></p>
-		    <label for="tags">Tags</label>
-			<input type="text" name="tags" id="tags" >
+		    <label for="tags">Tags: </label>
+			<input type="text" name="tags" id="tags" placeholder="tag1,tag2,tag3">
+			<span class="data-help">Champ sensible à la casse. NE PAS mettre d'espace avant et après chaque tags</span>
 	    </fieldset >
+		
+		<!-- Prototype de réponse à ajouter  -->
+		<div data-qf-prototype="answer">
+			<div data-qf-index-answer="{{index}}">
+				<button data-qf-event="remove">X</button>
+				<label for="response{{index}}" >Réponse {{index}}: </label >
+				<select  name="response{{index}}" id="response{{index}}" >
+					<option value="null">Désactivé</option>
+					<% for (var k in answers ) {
+						var answer = answers[k]; %>
+					
+					<option value="<%= answer.id %>"><%= answer.text %></option>
+					<% } %>
+				</select>
+				
+				<input type="checkbox" name="reponse{{index}}Valide" id="reponse{{index}}Valide" class="inline-block">
+				<label for="reponse{{index}}Valide" >Réponse correcte</label>
+			</div>
+		</div>
 
         <!--<input type="text" name="response1" placeholder="réponse 1">
         <input type="text" name="response2" placeholder="réponse 2">

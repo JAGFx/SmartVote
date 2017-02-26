@@ -174,7 +174,7 @@ var prepareEntity = function ( res ) {
 		currentQuestion.answers.push( {
 			id:    row.aId,
 			text:  row.aText,
-			value: row.value
+			value: parseInt( row.value )
 		} );
 		
 		if ( first )
