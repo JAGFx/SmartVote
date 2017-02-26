@@ -3,12 +3,14 @@ var socket = io.connect('http://localhost:8000');
 var dataQuestion  = [];
 var statusWaiting = 'En attente de réponse';
 var statusOK      = 'A répondu';
+var opendProjectorTab = false;
 
 socket.emit('managerConnection');
 
 
 socket.on('students', receiveStudentsData);
 socket.on('studentAnswer', updateAnswerStatus);
+socket.on('openProjectSocket', openProjectSocket);
 
 function receiveStudentsData(studentsData) {
   $('#table-students tbody').children().remove();
@@ -39,6 +41,17 @@ function updateAnswerStatus(answerData) {
         .html(statusOK);
     dataQuestion[answerData.answerId].nb++;
     updateChart(dataQuestion);
+}
+
+function openProjectSocket() {
+	if( !opendProjectorTab ) {
+		var win = window.open( window.location.origin + '/resultat.html', '_blank' );
+		win.focus();
+		
+		opendProjectorTab = true;
+	}
+	
+	sendCharts();
 }
 
 function sendQuestion(evt) {

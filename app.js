@@ -91,7 +91,10 @@ function connection(socket) {
     }
 
     function sendChart(dataQuestion) {
-        projectorSocket.emit('receiveDataQuestion', dataQuestion);
+        if( projectorSocket === undefined )
+			socket.emit('openProjectSocket');
+        else
+			projectorSocket.emit('receiveDataQuestion', dataQuestion);
     }
 
     function getSocketIdFromData(data) {
