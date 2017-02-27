@@ -6,7 +6,7 @@
 			<div class="question" id="<%= question.id %>">
 				<form data-question-id="<%= question.id %>">
 					<h2><%= question.text %></h2>
-					<div class='container'>
+					<div class='container-flex'>
 						<% for (answerId in question.answers) {
 						var answer = question.answers[answerId];
 						console.log(answer); %>
@@ -31,4 +31,5 @@
 	<script src="/jquery.js"></script>
 	<script src="/question.js"></script>
 	<link rel='stylesheet' href='/question.css' />
+	<link rel='stylesheet' href='/style.css' />
 </div>

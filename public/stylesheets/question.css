@@ -23,7 +23,7 @@
     background-color: #da5353
 }
 
-.container {
+.container-flex {
   display: flex;
   justify-content: space-around;
 }
