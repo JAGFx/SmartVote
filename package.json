@@ -15,5 +15,18 @@
     "mysql": "^2.12.0",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.7.2"
-  }
+  },
+  "description": "## Autre info générer un paquet de l'application js ```bash npm init ```",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JAGFx/SmartVote.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JAGFx/SmartVote/issues"
+  },
+  "homepage": "https://github.com/JAGFx/SmartVote#readme"
 }

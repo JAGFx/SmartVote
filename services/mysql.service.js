@@ -7,7 +7,9 @@ var connection = mysql.createConnection( {
 	host:     'localhost',
 	database: 'smartvote',
 	user:     'root',
-	password: ''
+	port: '3306',
+	socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+	password: 'root'
 } );
 
 exports.insertEntity = function ( table, newEntity, callback ) {

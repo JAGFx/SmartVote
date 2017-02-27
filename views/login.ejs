@@ -1,27 +1,37 @@
+<style type="text/css">
+    
+
+</style>
 <!DOCTYPE html>
 <html>
 <head>
+    <link type="text/css" rel="stylesheet" href="/bootstrap-like.css"/>
     <link type="text/css" rel="stylesheet" href="/style.css"/>
 </head>
 <body>
-    <p>Vous êtes sur la page d'accueil</p>
-    <form method='post' action='/question'>
-        <label for="name">Nom</label>
-        <input type="text" id="name" name="name"><br/>
+    <div class="container text-middle login_page"> 
+        <hr>
+        <p>Vous êtes sur la page d'accueil</p>
+        <hr>
+        <form id="login_form" method='post' action='/question'>
+        <fieldset>
+            <legend>Vos Informations:</legend>
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="name"><br/>
+            <label for="firstname">Prénom</label>
+            <input type="text" id="nickname" name="nickname"><br/>
+            <label for="salon">Salon</label>
+            <select name="salon" id="salon">
+                <option value="MIAM">MIAM</option>
+                <option value="ASSR">ASSR</option>
+            </select><br/>
+            <button type="submit">Connexion</button>
+        </fieldset>
 
-        <label for="firstname">Prénom</label>
-        <input type="text" id="nickname" name="nickname"><br/>
-
-        <label for="salon">Salon</label>
-        <select name="salon" id="salon">
-            <option value="MIAM">MIAM</option>
-            <option value="ASSR">ASSR</option>
-        </select><br/>
-
-        <button type="submit">Connexion</button>
-    </form>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/jquery.js"></script>
-    <script src="/connexion.js"></script>
+        </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/jquery.js"></script>
+        <script src="/connexion.js"></script>
+    </div>
 </body>
 </html>

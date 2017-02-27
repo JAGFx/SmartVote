@@ -1,32 +1,34 @@
 <h1>Question Party</h1>
-<div id="questions" class="tabcontent">
-<% for (questionId in questions) {
-		var question = questions[questionId]; %>
-		<div class="question" id="<%= question.id %>">
-			<form data-question-id="<%= question.id %>">
-				<h2><%= question.text %></h2>
-				<div class='container'>
-					<% for (answerId in question.answers) {
-					var answer = question.answers[answerId];
-					console.log(answer); %>
-					<button type="button" name="answers" value="<%= answer.id %>"
-						class="answer answer<%= answer.id+1 %>"
-						data-selected='false' onclick="selectAnswer('<%= answer.id %>')">
-						<%= answer.text %>
-					</button>
-						<!-- <input type="radio" name="answers" value="<%= answer.id %>" class="answer answer<%= answer.id+1 %>"> <%= answer.text %> -->
-					<% } %>
-				</div>
-				<button type="submit">Confirmer</button>
-			</form>
-		</div>
-<% } %>
-	<input name="name" value="<%= student.name %>" type="hidden">
-	<input name="nickname" value="<%= student.nickname %>" type="hidden">
-	<input name="salon" value="<%= student.salon %>" type="hidden">
-</div>
+<div class="container">	
+	<div id="questions" class="tabcontent">
+	<% for (questionId in questions) {
+			var question = questions[questionId]; %>
+			<div class="question" id="<%= question.id %>">
+				<form data-question-id="<%= question.id %>">
+					<h2><%= question.text %></h2>
+					<div class='container'>
+						<% for (answerId in question.answers) {
+						var answer = question.answers[answerId];
+						console.log(answer); %>
+						<button type="button" name="answers" value="<%= answer.id %>"
+							class="answer answer<%= answer.id+1 %>"
+							data-selected='false' onclick="selectAnswer('<%= answer.id %>')">
+							<%= answer.text %>
+						</button>
+							<!-- <input type="radio" name="answers" value="<%= answer.id %>" class="answer answer<%= answer.id+1 %>"> <%= answer.text %> -->
+						<% } %>
+					</div>
+					<button type="submit">Confirmer</button>
+				</form>
+			</div>
+	<% } %>
+		<input name="name" value="<%= student.name %>" type="hidden">
+		<input name="nickname" value="<%= student.nickname %>" type="hidden">
+		<input name="salon" value="<%= student.salon %>" type="hidden">
+	</div>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/jquery.js"></script>
-<script src="/question.js"></script>
-<link rel='stylesheet' href='/question.css' />
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="/jquery.js"></script>
+	<script src="/question.js"></script>
+	<link rel='stylesheet' href='/question.css' />
+</div>

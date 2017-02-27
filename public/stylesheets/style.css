@@ -7,8 +7,10 @@ Danger	#da5353
 
 /* Global Rules */
 /* -----------------------------*/
-body {
+body 
+{
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: cornsilk;
 }
 
 a {
@@ -20,6 +22,36 @@ footer hr {
 
 header {
 	height : 50px;
+}
+/* -----------------------------*/
+/*Login Form */
+.login_page p
+{
+
+}
+#login_form fieldset 
+{
+    padding: 2%;
+    text-align: left;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    background-color: rgba(120,200,120,0.5);
+}
+#login_form input 
+{
+    width : 60%;
+    margin-bottom: 10px;
+}
+#login_form label 
+{
+    width : 40%;
+    float: left;
+}
+#login_form button 
+{
+    margin-top: 10px;
 }
 
 /* -----------------------------*/

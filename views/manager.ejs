@@ -1,156 +1,155 @@
-<% include layout/header %>
-<script type='text/javascript'>
-    var questions = <%-JSON.stringify(questions)%>;
-</script>
+    <% include layout/header %>
+    <script type='text/javascript'>
+        var questions = <%-JSON.stringify(questions)%>;
+    </script>
+<div class="container">
+    <button onclick="addQuestion(event)">Ajouter une question</button>
+    <div id="formQuestion">
+    	
+    	<!-- Formulaire d'ajout de question -->
+        <form id="addQuestionForm" method="post">
+    		
+    		<!-- Espace Question -->
+    	    <fieldset data-qf="question" >
+    		    <legend >Question</legend >
+    		    <label for="question">Question :</label>
+    		    <input type="text" name="question" id="question" placeholder="De quel couleur est le cheval blanc d'Henri IV ?" required>
+    	    </fieldset >
+    		
+    		<!-- Espace réponse -->
+    	    <fieldset data-qf="answers" >
+    			<legend>Réponses</legend
+    	    </fieldset >
+    		
+    		<!-- Espace tags -->
+    	    <fieldset data-qf="tags">
+    		    <legend >Tags</legend >
+    			<p><b>Tags existant:</b> <%= tags.toString() %></p>
+    		    <label for="tags">Tags: </label>
+    			<input type="text" name="tags" id="tags" placeholder="tag1,tag2,tag3">
+    			<span class="data-help">Champ sensible à la casse. NE PAS mettre d'espace avant et après chaque tags</span>
+    	    </fieldset >
+    		
+    		<!-- Prototype de réponse à ajouter  -->
+    		<div data-qf-prototype="answer">
+    			<div data-qf-index-answer="{{index}}">
+    				<button data-qf-event="remove">X</button>
+    				<label for="response{{index}}" >Réponse {{index}}: </label >
+    				<select  name="response{{index}}" id="response{{index}}" >
+    					<option value="null">Désactivé</option>
+    					<% for (var k in answers ) {
+    						var answer = answers[k]; %>
+    					
+    					<option value="<%= answer.id %>"><%= answer.text %></option>
+    					<% } %>
+    				</select>
+    				
+    				<input type="checkbox" name="reponse{{index}}Valide" id="reponse{{index}}Valide" class="inline-block">
+    				<label for="reponse{{index}}Valide" >Réponse correcte</label>
+    			</div>
+    		</div>
 
+            <!--<input type="text" name="response1" placeholder="réponse 1">
+            <input type="text" name="response2" placeholder="réponse 2">
+            <input type="text" name="response3" placeholder="réponse 3">
+            <input type="text" name="response4" placeholder="réponse 4">
+            <input type="radio" name="response" value="0" > réponse 1
+            <input type="radio" name="response" value="1"> réponse 2
+            <input type="radio" name="response" value="2"> réponse 3
+            <input type="radio" name="response" value="3"> réponse 4
+            <label>tag : </label>
+            <select name="tag" multiple>
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>-->
+            <button type="submit">Ajouter</button>
 
-<button onclick="addQuestion(event)">Ajouter une question</button>
-<div id="formQuestion">
-	
-	<!-- Formulaire d'ajout de question -->
-    <form id="addQuestionForm" method="post">
-		
-		<!-- Espace Question -->
-	    <fieldset data-qf="question" >
-		    <legend >Question</legend >
-		    <label for="question">Question :</label>
-		    <input type="text" name="question" id="question" placeholder="De quel couleur est le cheval blanc d'Henri IV ?" required>
-	    </fieldset >
-		
-		<!-- Espace réponse -->
-	    <fieldset data-qf="answers" >
-			<legend>Réponses</legend
-	    </fieldset >
-		
-		<!-- Espace tags -->
-	    <fieldset data-qf="tags">
-		    <legend >Tags</legend >
-			<p><b>Tags existant:</b> <%= tags.toString() %></p>
-		    <label for="tags">Tags: </label>
-			<input type="text" name="tags" id="tags" placeholder="tag1,tag2,tag3">
-			<span class="data-help">Champ sensible à la casse. NE PAS mettre d'espace avant et après chaque tags</span>
-	    </fieldset >
-		
-		<!-- Prototype de réponse à ajouter  -->
-		<div data-qf-prototype="answer">
-			<div data-qf-index-answer="{{index}}">
-				<button data-qf-event="remove">X</button>
-				<label for="response{{index}}" >Réponse {{index}}: </label >
-				<select  name="response{{index}}" id="response{{index}}" >
-					<option value="null">Désactivé</option>
-					<% for (var k in answers ) {
-						var answer = answers[k]; %>
-					
-					<option value="<%= answer.id %>"><%= answer.text %></option>
-					<% } %>
-				</select>
-				
-				<input type="checkbox" name="reponse{{index}}Valide" id="reponse{{index}}Valide" class="inline-block">
-				<label for="reponse{{index}}Valide" >Réponse correcte</label>
-			</div>
-		</div>
+        </form>
+    </div>
 
-        <!--<input type="text" name="response1" placeholder="réponse 1">
-        <input type="text" name="response2" placeholder="réponse 2">
-        <input type="text" name="response3" placeholder="réponse 3">
-        <input type="text" name="response4" placeholder="réponse 4">
-        <input type="radio" name="response" value="0" > réponse 1
-        <input type="radio" name="response" value="1"> réponse 2
-        <input type="radio" name="response" value="2"> réponse 3
-        <input type="radio" name="response" value="3"> réponse 4
-        <label>tag : </label>
-        <select name="tag" multiple>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="opel">Opel</option>
-            <option value="audi">Audi</option>
-        </select>-->
-        <button type="submit">Ajouter</button>
+    <ul class="tab">
+        <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
+        <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
+    </ul>
 
-    </form>
-</div>
+    <!-- Students List -->
+    <div id="students" class="tabcontent" style="display: block;">
+        <h1>Page Manager</h1>
+        <div style="overflow-x:auto;">
+            <table id="table-students">
+            <legend>Etudiants connectés</legend>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</tr>
+                    <th>Salon</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            </table>
+        </div>
+        <div class="infos">
+            <h4>Informations : </h4>
+        </div>
+        <div class="container maintcontent text-midle">
+            <button class="button-change-graph">Changer de graph</button>
+            <button onclick="sendCharts()">Afficher</button>
+        </div>
+        <div class="row chart"></div>
+    </div>
 
-<ul class="tab">
-    <li><a href="javascript:void(0)" class="tablinks active" onclick="openTab(event, 'students')">Liste des étudiants</a></li>
-    <li><a href="javascript:void(0)" class="tablinks" onclick="openTab(event, 'questions')">Liste des questions</a></li>
-</ul>
-
-<!-- Students List -->
-<div id="students" class="tabcontent" style="display: block;">
-    <h1>Page Manager</h1>
-    <div style="overflow-x:auto;">
-        <table id="table-students">
-        <legend>Etudiants connectés</legend>
+    <!-- Questions List -->
+    <div id="questions" class="tabcontent">
+        <table id="table-questions">
+        <legend>Liste des questions</legend>
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Prénom</tr>
-                <th>Salon</th>
-                <th>Statut</th>
-                <th>Action</th>
+                <th>Question</th>
+                <th>Réponses</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
+        <% for (questionId in questions) {
+            var question = questions[questionId] %>
+            <tr>
+              <td>#<%= question.id %> <%= question.text %></td>
+              <td>
+                <ul>
+              <% for (answerId in question.answers) {
+                  var answer = question.answers[answerId]; %>
+                  <li>
+                    #<%= answer.id %>
+                    <% if (answer.value == 1) { %>
+                      <span class="badge success">Vraie</span>
+                    <% } else { %>
+                      <span class="badge danger">Faux</span>
+                    <% } %>
+                    <%= answer.text %>
+                  </li>
+              <% } %>
+                </ul>
+              </td>
+              <td>
+                <button data-question-id="<%= question.id %>"
+                    data-answer-id="<%= answer.id %>"
+                    onclick="sendQuestion(event)">Envoyer
+                </button>
+              </td>
+            </tr>
+        <% } %>
         </tbody>
         </table>
     </div>
-    <div class="infos">
-        <h4>Informations : </h4>
-    </div>
-    <div class="container maintcontent text-midle">
-        <button class="button-change-graph">Changer de graph</button>
-        <button onclick="sendCharts()">Afficher</button>
-    </div>
-    <div class="row chart"></div>
-</div>
 
-<!-- Questions List -->
-<div id="questions" class="tabcontent">
-    <table id="table-questions">
-    <legend>Liste des questions</legend>
-    <thead>
-        <tr>
-            <th>Question</th>
-            <th>Réponses</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    <% for (questionId in questions) {
-        var question = questions[questionId] %>
-        <tr>
-          <td>#<%= question.id %> <%= question.text %></td>
-          <td>
-            <ul>
-          <% for (answerId in question.answers) {
-              var answer = question.answers[answerId]; %>
-              <li>
-                #<%= answer.id %>
-                <% if (answer.value == 1) { %>
-                  <span class="badge success">Vraie</span>
-                <% } else { %>
-                  <span class="badge danger">Faux</span>
-                <% } %>
-                <%= answer.text %>
-              </li>
-          <% } %>
-            </ul>
-          </td>
-          <td>
-            <button data-question-id="<%= question.id %>"
-                data-answer-id="<%= answer.id %>"
-                onclick="sendQuestion(event)">Envoyer
-            </button>
-          </td>
-        </tr>
-    <% } %>
-    </tbody>
-    </table>
-</div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/manager.js"></script>
-<link rel='stylesheet' href='/manager.css' />
-
-</body>
-</html>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/manager.js"></script>
+    <link rel='stylesheet' href='/manager.css' />
+</tdiv>
+    </body>
+    </html>
