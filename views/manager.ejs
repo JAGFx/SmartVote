@@ -1,9 +1,11 @@
+<div class="container">
     <% include layout/header %>
     <script type='text/javascript'>
         var questions = <%-JSON.stringify(questions)%>;
     </script>
-<div class="container">
-    <button onclick="addQuestion(event)">Ajouter une question</button>
+
+
+    <button id="add_question" onclick="addQuestion(event)">Ajouter une question</button>
     <div id="formQuestion">
     	
     	<!-- Formulaire d'ajout de question -->
@@ -150,6 +152,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/manager.js"></script>
     <link rel='stylesheet' href='/manager.css' />
-</tdiv>
+
     </body>
     </html>
+</div>

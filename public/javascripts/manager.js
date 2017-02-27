@@ -103,9 +103,11 @@ function sendCharts() {
 function addQuestion() {
     var formQuestion = $('#formQuestion');
     if (formQuestion.css('display') == 'none') {
-        $('#formQuestion').css('display', 'block');
+        $('#formQuestion').show("slow");
+       	$("#add_question").html("Fermer");
     } else {
-        $('#formQuestion').css('display', 'none');
+        $('#formQuestion').hide("slow");
+        $("#add_question").html("Ajouter une question");
     }
 }
 
