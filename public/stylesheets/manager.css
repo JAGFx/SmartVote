@@ -56,3 +56,15 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 .inline-block { display: inline-block !important; }
+
+.table_student, .table_student table { margin-top: 15px;}
+
+.table_student th
+{
+    width:20%;
+}
+.table_student td
+{
+    width:20%;
+    text-align: center;
+}

@@ -7,22 +7,22 @@
 
     <button id="add_question" onclick="addQuestion(event)">Ajouter une question</button>
     <div id="formQuestion">
-    	
+
     	<!-- Formulaire d'ajout de question -->
         <form id="addQuestionForm" method="post">
-    		
+
     		<!-- Espace Question -->
     	    <fieldset data-qf="question" >
     		    <legend >Question</legend >
     		    <label for="question">Question :</label>
     		    <input type="text" name="question" id="question" placeholder="De quel couleur est le cheval blanc d'Henri IV ?" required>
     	    </fieldset >
-    		
+
     		<!-- Espace réponse -->
     	    <fieldset data-qf="answers" >
     			<legend>Réponses</legend
     	    </fieldset >
-    		
+
     		<!-- Espace tags -->
     	    <fieldset data-qf="tags">
     		    <legend >Tags</legend >
@@ -31,7 +31,7 @@
     			<input type="text" name="tags" id="tags" placeholder="tag1,tag2,tag3">
     			<span class="data-help">Champ sensible à la casse. NE PAS mettre d'espace avant et après chaque tags</span>
     	    </fieldset >
-    		
+
     		<!-- Prototype de réponse à ajouter  -->
     		<div data-qf-prototype="answer">
     			<div data-qf-index-answer="{{index}}">
@@ -41,11 +41,11 @@
     					<option value="null">Désactivé</option>
     					<% for (var k in answers ) {
     						var answer = answers[k]; %>
-    					
+
     					<option value="<%= answer.id %>"><%= answer.text %></option>
     					<% } %>
     				</select>
-    				
+
     				<input type="checkbox" name="reponse{{index}}Valide" id="reponse{{index}}Valide" class="inline-block">
     				<label for="reponse{{index}}Valide" >Réponse correcte</label>
     			</div>
@@ -79,13 +79,13 @@
     <!-- Students List -->
     <div id="students" class="tabcontent" style="display: block;">
         <h1>Page Manager</h1>
-        <div style="overflow-x:auto;">
+        <div class="table_student" style="overflow-x:auto;">
             <table id="table-students">
             <legend>Etudiants connectés</legend>
             <thead>
                 <tr>
                     <th>Nom</th>
-                    <th>Prénom</tr>
+                    <th>Prénom</th>
                     <th>Salon</th>
                     <th>Statut</th>
                     <th>Action</th>

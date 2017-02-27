@@ -7,7 +7,7 @@ Danger	#da5353
 
 /* Global Rules */
 /* -----------------------------*/
-body 
+body
 {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: cornsilk;
@@ -44,7 +44,7 @@ button:hover
     width: 40%;
     background-color: rgba(100,200,100,0.8);
     padding: 2%;
-} 
+}
 
 #login_form
 {
@@ -113,7 +113,7 @@ button:hover
     border-radius: 5px;
     background-color: black;
     color: white;
-    padding: 2px;
+    /*padding: 2px;*/
 }
 
 .badge.success {
